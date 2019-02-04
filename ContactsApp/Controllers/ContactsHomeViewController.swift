@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ContactsHomeViewController.swift
 //  ContactsApp
 //
 //  Created by Vincent Joy on 04/02/19.
@@ -8,13 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ContactsHomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
-
-
 }
-
