@@ -6,14 +6,20 @@
 //  Copyright © 2019 Contacts. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-struct ContactModel {
+enum ProfilePhotoState {
+    case New, Downloaded, Failed
+}
+
+class ContactModel {
     
     var id: Int
-    var favorite: Bool
+    var favorite: Bool?
     var userName = ""
-    var profilePictureURL: String?
+    var profilePhotoURL: String?
+    var profilePhotoState = ProfilePhotoState.New
+    var profilePhoto: UIImage?
     
     init?(data: [String:Any]) {
         
@@ -22,10 +28,8 @@ struct ContactModel {
         }
         self.id = id
         
-        if let fav = data["favorite"] as? Bool {
-            favorite = fav
-        } else {
-            favorite = false
+        if let favorite = data["favorite"] as? Bool, favorite {
+            self.favorite = favorite
         }
         
         if let firstName = data["first_name"] as? String {
@@ -33,6 +37,16 @@ struct ContactModel {
             if let lastName = data["last_name"] as? String {
                 userName += " \(lastName)"
             }
+        }
+        
+        if let profilePic = data["profile_pic"] as? String {
+            self.profilePhotoURL = profilePic
+        }
+    }
+    
+    func changeFavorite() {
+        if let favorite = self.favorite {
+            self.favorite = !favorite
         }
     }
 }

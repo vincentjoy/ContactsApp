@@ -75,14 +75,9 @@ class WebService {
             }
             
             do {
-                if let dataSource = try JSONSerialization.jsonObject(with: data) as? [Dictionary<String,Any>] {
-                    DispatchQueue.main.async {
-                        completionClosure(.Success(dataSource))
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        completionClosure(.Failure("No data found"))
-                    }
+                let dataSource = try JSONSerialization.jsonObject(with: data)
+                DispatchQueue.main.async {
+                    completionClosure(.Success(dataSource))
                 }
             } catch {
                 DispatchQueue.main.async {

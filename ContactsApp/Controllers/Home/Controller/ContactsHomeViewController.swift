@@ -8,22 +8,19 @@
 
 import UIKit
 
-enum APIState {
-    case Loading
-    case Success
-    case Failure
+enum ViewState {
+    case Loading, Success, Failure
 }
 
 class ContactsHomeViewController: UIViewController, WebserviceHandler {
 
     @IBOutlet var outletObject: ContactsHomeOutletObject!
-    
     private var tableViewDriver: ContactsHomeTableViewDriver?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customiseNavigationUI()
-        customiseState(apiState: .Loading)
+        customiseState(state: .Loading)
         fetchContacts()
     }
     
@@ -40,9 +37,9 @@ class ContactsHomeViewController: UIViewController, WebserviceHandler {
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.ContactsTheme.greenColor
     }
     
-    private func customiseState(apiState: APIState) {
+    private func customiseState(state: ViewState) {
     
-        switch apiState {
+        switch state {
         case .Loading:
             outletObject.tableView.isHidden = true
             outletObject.indicatorContainer.isHidden = false
@@ -63,7 +60,7 @@ class ContactsHomeViewController: UIViewController, WebserviceHandler {
     private func fetchContacts() {
         
         guard checkNetwork() else {
-            self.customiseState(apiState: .Failure)
+            self.customiseState(state: .Failure)
             self.handleError(title: "No Internet", message: "Please check your connection")
             return
         }
@@ -71,12 +68,15 @@ class ContactsHomeViewController: UIViewController, WebserviceHandler {
         WebService.shared.request(method: .Get, url: WebServiceRoute.GetContacts(.BaseURL, .GetContacts)) { (result) in
             switch result {
             case .Success(let data):
-                if let contactsData = data as? [Dictionary<String,Any>] {
+                if let contactsData = data as? [Dictionary<String,Any>], contactsData.count>0 {
                     self.customiseTableView(contactsData: contactsData)
-                    self.customiseState(apiState: .Success)
+                    self.customiseState(state: .Success)
+                } else {
+                    self.customiseState(state: .Failure)
+                    self.handleError(message: "No data found")
                 }
             case .Failure(let error):
-                self.customiseState(apiState: .Failure)
+                self.customiseState(state: .Failure)
                 self.handleError(message: error)
             }
         }

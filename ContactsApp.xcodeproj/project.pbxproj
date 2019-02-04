@@ -20,6 +20,8 @@
 		2FBB9B8E2208CD2B006EEB87 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B8D2208CD2B006EEB87 /* UIExtensions.swift */; };
 		2FBB9B902208CDD0006EEB87 /* CustomMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B8F2208CDD0006EEB87 /* CustomMethods.swift */; };
 		2FBB9B932208D6D9006EEB87 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B922208D6D9006EEB87 /* ContactModel.swift */; };
+		2FBB9B972208E57F006EEB87 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B962208E57F006EEB87 /* ContactTableViewCell.swift */; };
+		2FBB9B9C2208F402006EEB87 /* PhotoOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B9B2208F402006EEB87 /* PhotoOperations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		2FBB9B8D2208CD2B006EEB87 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		2FBB9B8F2208CDD0006EEB87 /* CustomMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMethods.swift; sourceTree = "<group>"; };
 		2FBB9B922208D6D9006EEB87 /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
+		2FBB9B962208E57F006EEB87 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
+		2FBB9B9B2208F402006EEB87 /* PhotoOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoOperations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,8 +119,7 @@
 				2FBB9B5C2208A146006EEB87 /* Info.plist */,
 				2FBB9B502208A144006EEB87 /* AppDelegate.swift */,
 				2FBB9B812208A7A7006EEB87 /* Helpers */,
-				2FBB9B912208D6BF006EEB87 /* Models */,
-				2FBB9B7E2208A165006EEB87 /* Controllers */,
+				2FBB9B982208F358006EEB87 /* Controllers */,
 			);
 			path = ContactsApp;
 			sourceTree = "<group>";
@@ -139,12 +142,12 @@
 			path = ContactsAppUITests;
 			sourceTree = "<group>";
 		};
-		2FBB9B7E2208A165006EEB87 /* Controllers */ = {
+		2FBB9B7E2208A165006EEB87 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2FBB9B842208ABAC006EEB87 /* Home */,
+				2FBB9B7F2208A181006EEB87 /* ContactsHomeViewController.swift */,
 			);
-			path = Controllers;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		2FBB9B812208A7A7006EEB87 /* Helpers */ = {
@@ -160,19 +163,46 @@
 		2FBB9B842208ABAC006EEB87 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				2FBB9B872208B620006EEB87 /* ContactsHomeOutletObject.swift */,
-				2FBB9B7F2208A181006EEB87 /* ContactsHomeViewController.swift */,
-				2FBB9B852208AC07006EEB87 /* ContactsHomeTableViewDriver.swift */,
+				2FBB9B912208D6BF006EEB87 /* Model */,
+				2FBB9B952208E557006EEB87 /* View */,
+				2FBB9B992208F38B006EEB87 /* ViewModel */,
+				2FBB9B7E2208A165006EEB87 /* Controller */,
 			);
 			path = Home;
 			sourceTree = "<group>";
 		};
-		2FBB9B912208D6BF006EEB87 /* Models */ = {
+		2FBB9B912208D6BF006EEB87 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2FBB9B9B2208F402006EEB87 /* PhotoOperations.swift */,
 				2FBB9B922208D6D9006EEB87 /* ContactModel.swift */,
 			);
-			path = Models;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2FBB9B952208E557006EEB87 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2FBB9B962208E57F006EEB87 /* ContactTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2FBB9B982208F358006EEB87 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2FBB9B842208ABAC006EEB87 /* Home */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2FBB9B992208F38B006EEB87 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2FBB9B872208B620006EEB87 /* ContactsHomeOutletObject.swift */,
+				2FBB9B852208AC07006EEB87 /* ContactsHomeTableViewDriver.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,8 +340,10 @@
 				2FBB9B902208CDD0006EEB87 /* CustomMethods.swift in Sources */,
 				2FBB9B932208D6D9006EEB87 /* ContactModel.swift in Sources */,
 				2FBB9B8E2208CD2B006EEB87 /* UIExtensions.swift in Sources */,
+				2FBB9B9C2208F402006EEB87 /* PhotoOperations.swift in Sources */,
 				2FBB9B8C2208BED3006EEB87 /* Webservice.swift in Sources */,
 				2FBB9B862208AC07006EEB87 /* ContactsHomeTableViewDriver.swift in Sources */,
+				2FBB9B972208E57F006EEB87 /* ContactTableViewCell.swift in Sources */,
 				2FBB9B882208B620006EEB87 /* ContactsHomeOutletObject.swift in Sources */,
 				2FBB9B512208A144006EEB87 /* AppDelegate.swift in Sources */,
 			);
