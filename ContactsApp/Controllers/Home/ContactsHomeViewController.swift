@@ -22,12 +22,10 @@ class ContactsHomeViewController: UIViewController {
     private var tableViewDriver: ContactsHomeTableViewDriver?
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
-        customiseState()
         customiseNavigationUI()
-        customiseTableView()
+        customiseState()
+        fetchContacts()
     }
     
     private func customiseNavigationUI() {
@@ -53,6 +51,7 @@ class ContactsHomeViewController: UIViewController {
             outletObject.activityIndicator.startAnimating()
         case .Success:
             outletObject.tableView.isHidden = false
+            customiseTableView()
             outletObject.indicatorContainer.isHidden = true
             outletObject.activityIndicator.stopAnimating()
         case .Failure:
@@ -61,6 +60,10 @@ class ContactsHomeViewController: UIViewController {
             outletObject.activityIndicator.stopAnimating()
             outletObject.indicatorLabel.text = "No contacts found!"
         }
+    }
+    
+    private func fetchContacts() {
+        
     }
     
     private func customiseTableView() {
