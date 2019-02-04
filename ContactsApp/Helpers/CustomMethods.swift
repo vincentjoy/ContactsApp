@@ -10,13 +10,13 @@ import UIKit
 import SystemConfiguration
 
 protocol WebserviceHandler: class {
-    func connectedToNetwork() -> Bool
-    func handleError(title: String, message: String)
+    func checkNetwork() -> Bool
+    func handleError(title: String?, message: String)
 }
 
 extension WebserviceHandler where Self: UIViewController {
     
-    func connectedToNetwork() -> Bool {
+    func checkNetwork() -> Bool {
         
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
@@ -41,7 +41,7 @@ extension WebserviceHandler where Self: UIViewController {
         return (isReachable && !needsConnection)
     }
     
-    func handleError(title: String?=nil, message: String) {
+    func handleError(title: String? = nil, message: String) {
         
         let alert = UIAlertController(title: (title ?? "Sorry"), message: message, preferredStyle: UIAlertController.Style.actionSheet)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))

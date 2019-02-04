@@ -11,6 +11,7 @@ import UIKit
 class ContactsHomeTableViewDriver: NSObject {
     
     let tableView: UITableView
+    var contacts = [ContactModel]()
     
     init(tableView: UITableView) {
         
@@ -22,7 +23,12 @@ class ContactsHomeTableViewDriver: NSObject {
         tableView.rowHeight = 44
     }
     
-    func reloadData() {
+    func reloadData(contactsData: [Dictionary<String,Any>]) {
+        for contact in contactsData {
+            if let contactInstance = ContactModel(data: contact) {
+                contacts.append(contactInstance)
+            }
+        }
         tableView.reloadData()
     }
 }

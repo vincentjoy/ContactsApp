@@ -9,14 +9,14 @@
 import UIKit
 
 enum Completion {
-    case success(Any)
-    case failure(String)
+    case Success(Any)
+    case Failure(String)
 }
 
 enum HTTPMethod: String {
-    case get     = "GET"
-    case post    = "POST"
-    case put     = "PUT"
+    case Get = "GET"
+    case Post = "POST"
+    case Put = "PUT"
 }
 
 enum WebServiceEndPoint: String {
@@ -68,18 +68,26 @@ class WebService {
             }
             
             guard let data = data, error == nil else {
-                completionClosure(.failure(error!.localizedDescription))
+                DispatchQueue.main.async {
+                    completionClosure(.Failure(error!.localizedDescription))
+                }
                 return
             }
             
             do {
                 if let dataSource = try JSONSerialization.jsonObject(with: data) as? [Dictionary<String,Any>] {
-                    completionClosure(.success(dataSource))
+                    DispatchQueue.main.async {
+                        completionClosure(.Success(dataSource))
+                    }
                 } else {
-                    completionClosure(.failure("No data found"))
+                    DispatchQueue.main.async {
+                        completionClosure(.Failure("No data found"))
+                    }
                 }
             } catch {
-                completionClosure(.failure("No data found"))
+                DispatchQueue.main.async {
+                    completionClosure(.Failure("No data found"))
+                }
             }
         }
         task.resume()

@@ -14,17 +14,16 @@ enum APIState {
     case Failure
 }
 
-class ContactsHomeViewController: UIViewController {
+class ContactsHomeViewController: UIViewController, WebserviceHandler {
 
     @IBOutlet var outletObject: ContactsHomeOutletObject!
     
-    private var apiState = APIState.Loading
     private var tableViewDriver: ContactsHomeTableViewDriver?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         customiseNavigationUI()
-        customiseState()
+        customiseState(apiState: .Loading)
         fetchContacts()
     }
     
@@ -41,7 +40,7 @@ class ContactsHomeViewController: UIViewController {
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.ContactsTheme.greenColor
     }
     
-    private func customiseState() {
+    private func customiseState(apiState: APIState) {
     
         switch apiState {
         case .Loading:
@@ -51,7 +50,6 @@ class ContactsHomeViewController: UIViewController {
             outletObject.activityIndicator.startAnimating()
         case .Success:
             outletObject.tableView.isHidden = false
-            customiseTableView()
             outletObject.indicatorContainer.isHidden = true
             outletObject.activityIndicator.stopAnimating()
         case .Failure:
@@ -64,11 +62,29 @@ class ContactsHomeViewController: UIViewController {
     
     private func fetchContacts() {
         
+        guard checkNetwork() else {
+            self.customiseState(apiState: .Failure)
+            self.handleError(title: "No Internet", message: "Please check your connection")
+            return
+        }
+        
+        WebService.shared.request(method: .Get, url: WebServiceRoute.GetContacts(.BaseURL, .GetContacts)) { (result) in
+            switch result {
+            case .Success(let data):
+                if let contactsData = data as? [Dictionary<String,Any>] {
+                    self.customiseTableView(contactsData: contactsData)
+                    self.customiseState(apiState: .Success)
+                }
+            case .Failure(let error):
+                self.customiseState(apiState: .Failure)
+                self.handleError(message: error)
+            }
+        }
     }
     
-    private func customiseTableView() {
+    private func customiseTableView(contactsData: [Dictionary<String,Any>]) {
         tableViewDriver = ContactsHomeTableViewDriver(tableView: self.outletObject.tableView)
-        tableViewDriver?.reloadData()
+        tableViewDriver?.reloadData(contactsData: contactsData)
     }
     
     @objc func addContacts() {

@@ -19,6 +19,7 @@
 		2FBB9B8C2208BED3006EEB87 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B8B2208BED3006EEB87 /* Webservice.swift */; };
 		2FBB9B8E2208CD2B006EEB87 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B8D2208CD2B006EEB87 /* UIExtensions.swift */; };
 		2FBB9B902208CDD0006EEB87 /* CustomMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B8F2208CDD0006EEB87 /* CustomMethods.swift */; };
+		2FBB9B932208D6D9006EEB87 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B922208D6D9006EEB87 /* ContactModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		2FBB9B8B2208BED3006EEB87 /* Webservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		2FBB9B8D2208CD2B006EEB87 /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		2FBB9B8F2208CDD0006EEB87 /* CustomMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMethods.swift; sourceTree = "<group>"; };
+		2FBB9B922208D6D9006EEB87 /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				2FBB9B5C2208A146006EEB87 /* Info.plist */,
 				2FBB9B502208A144006EEB87 /* AppDelegate.swift */,
 				2FBB9B812208A7A7006EEB87 /* Helpers */,
+				2FBB9B912208D6BF006EEB87 /* Models */,
 				2FBB9B7E2208A165006EEB87 /* Controllers */,
 			);
 			path = ContactsApp;
@@ -162,6 +165,14 @@
 				2FBB9B852208AC07006EEB87 /* ContactsHomeTableViewDriver.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		2FBB9B912208D6BF006EEB87 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2FBB9B922208D6D9006EEB87 /* ContactModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,6 +308,7 @@
 			files = (
 				2FBB9B802208A181006EEB87 /* ContactsHomeViewController.swift in Sources */,
 				2FBB9B902208CDD0006EEB87 /* CustomMethods.swift in Sources */,
+				2FBB9B932208D6D9006EEB87 /* ContactModel.swift in Sources */,
 				2FBB9B8E2208CD2B006EEB87 /* UIExtensions.swift in Sources */,
 				2FBB9B8C2208BED3006EEB87 /* Webservice.swift in Sources */,
 				2FBB9B862208AC07006EEB87 /* ContactsHomeTableViewDriver.swift in Sources */,
