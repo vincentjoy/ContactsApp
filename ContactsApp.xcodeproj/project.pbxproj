@@ -14,6 +14,9 @@
 		2FBB9B662208A146006EEB87 /* ContactsAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B652208A146006EEB87 /* ContactsAppTests.swift */; };
 		2FBB9B712208A146006EEB87 /* ContactsAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B702208A146006EEB87 /* ContactsAppUITests.swift */; };
 		2FBB9B802208A181006EEB87 /* ContactsHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B7F2208A181006EEB87 /* ContactsHomeViewController.swift */; };
+		2FBB9B832208A7BE006EEB87 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B822208A7BE006EEB87 /* Extensions.swift */; };
+		2FBB9B862208AC07006EEB87 /* ContactsHomeTableViewDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B852208AC07006EEB87 /* ContactsHomeTableViewDriver.swift */; };
+		2FBB9B882208B620006EEB87 /* ContactsHomeOutletObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B872208B620006EEB87 /* ContactsHomeOutletObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +50,9 @@
 		2FBB9B702208A146006EEB87 /* ContactsAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsAppUITests.swift; sourceTree = "<group>"; };
 		2FBB9B722208A146006EEB87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FBB9B7F2208A181006EEB87 /* ContactsHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsHomeViewController.swift; sourceTree = "<group>"; };
+		2FBB9B822208A7BE006EEB87 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		2FBB9B852208AC07006EEB87 /* ContactsHomeTableViewDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsHomeTableViewDriver.swift; sourceTree = "<group>"; };
+		2FBB9B872208B620006EEB87 /* ContactsHomeOutletObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsHomeOutletObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +108,7 @@
 				2FBB9B572208A146006EEB87 /* Assets.xcassets */,
 				2FBB9B5C2208A146006EEB87 /* Info.plist */,
 				2FBB9B502208A144006EEB87 /* AppDelegate.swift */,
+				2FBB9B812208A7A7006EEB87 /* Helpers */,
 				2FBB9B7E2208A165006EEB87 /* Controllers */,
 			);
 			path = ContactsApp;
@@ -128,9 +135,27 @@
 		2FBB9B7E2208A165006EEB87 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2FBB9B7F2208A181006EEB87 /* ContactsHomeViewController.swift */,
+				2FBB9B842208ABAC006EEB87 /* Home */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2FBB9B812208A7A7006EEB87 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2FBB9B822208A7BE006EEB87 /* Extensions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		2FBB9B842208ABAC006EEB87 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				2FBB9B872208B620006EEB87 /* ContactsHomeOutletObject.swift */,
+				2FBB9B7F2208A181006EEB87 /* ContactsHomeViewController.swift */,
+				2FBB9B852208AC07006EEB87 /* ContactsHomeTableViewDriver.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,6 +290,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FBB9B802208A181006EEB87 /* ContactsHomeViewController.swift in Sources */,
+				2FBB9B862208AC07006EEB87 /* ContactsHomeTableViewDriver.swift in Sources */,
+				2FBB9B832208A7BE006EEB87 /* Extensions.swift in Sources */,
+				2FBB9B882208B620006EEB87 /* ContactsHomeOutletObject.swift in Sources */,
 				2FBB9B512208A144006EEB87 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

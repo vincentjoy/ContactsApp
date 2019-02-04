@@ -33,15 +33,53 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="B2Q-A9-VF5">
+                                <rect key="frame" x="111.5" y="323.5" width="152.5" height="20"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="noa-tW-Ti4">
+                                        <rect key="frame" x="0.0" y="0.0" width="124.5" height="20"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gvz-u9-4Kd">
+                                        <rect key="frame" x="132.5" y="0.0" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ysg-hu-Cac">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ysg-hu-Cac" secondAttribute="bottom" id="4a0-1S-d9O"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ysg-hu-Cac" secondAttribute="trailing" id="WWJ-2t-U0G"/>
+                            <constraint firstItem="ysg-hu-Cac" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WfY-rB-nyB"/>
+                            <constraint firstItem="B2Q-A9-VF5" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="dX5-gb-4Xb"/>
+                            <constraint firstItem="B2Q-A9-VF5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="m1p-xL-zK5"/>
+                            <constraint firstItem="ysg-hu-Cac" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="xds-2W-XIp"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="euE-hH-Xmq"/>
+                    <connections>
+                        <outlet property="outletObject" destination="ULf-OP-TKj" id="Aqx-r0-mrS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <navigationItem title="Contact" id="Oka-H2-JFC"/>
+                <customObject id="ULf-OP-TKj" customClass="ContactsHomeOutletObject" customModule="ContactsApp" customModuleProvider="target">
+                    <connections>
+                        <outlet property="activityIndicator" destination="gvz-u9-4Kd" id="d7s-Wb-8Rc"/>
+                        <outlet property="indicatorContainer" destination="B2Q-A9-VF5" id="uej-26-tHq"/>
+                        <outlet property="indicatorLabel" destination="noa-tW-Ti4" id="IuY-ok-6I9"/>
+                        <outlet property="tableView" destination="ysg-hu-Cac" id="mSg-ju-7jU"/>
+                    </connections>
+                </customObject>
             </objects>
-            <point key="canvasLocation" x="-313" y="-30"/>
+            <point key="canvasLocation" x="-398" y="-30"/>
         </scene>
     </scenes>
 </document>
