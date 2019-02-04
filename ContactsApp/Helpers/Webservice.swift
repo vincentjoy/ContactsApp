@@ -10,7 +10,7 @@ import UIKit
 
 enum Completion {
     case success(Any)
-    case failure(Error)
+    case failure(String)
 }
 
 enum HTTPMethod: String {
@@ -57,29 +57,31 @@ class WebService {
         request.httpMethod = method.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let task = URLSession(configuration: .default).dataTask(with: request) { data, response, error in
-            
-            if let data = data {
-                do {
-                    
-                    if let dataSource = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                        DispatchQueue.main.async {
-                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                        }
-                    } else {
-                        print("Error")
-                    }
-                    
-                } catch {
-                    print("Error")
-                }
-            }
-            
-            if error != nil {
-                print("Error")
-            }
+        if let requestBody = parameters as? [String:Any] {
+            request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody, options: [])
         }
         
+        let task = URLSession(configuration: .default).dataTask(with: request) { data, response, error in
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            }
+            
+            guard let data = data, error == nil else {
+                completionClosure(.failure(error!.localizedDescription))
+                return
+            }
+            
+            do {
+                if let dataSource = try JSONSerialization.jsonObject(with: data) as? [Dictionary<String,Any>] {
+                    completionClosure(.success(dataSource))
+                } else {
+                    completionClosure(.failure("No data found"))
+                }
+            } catch {
+                completionClosure(.failure("No data found"))
+            }
+        }
         task.resume()
     }
 }
