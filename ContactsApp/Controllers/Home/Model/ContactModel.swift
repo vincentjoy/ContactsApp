@@ -39,7 +39,7 @@ class ContactModel {
             }
         }
         
-        if let profilePic = data["profile_pic"] as? String {
+        if let profilePic = data["profile_pic"] as? String, !profilePic.contains("/images/missing.png") {
             self.profilePhotoURL = profilePic
         }
     }

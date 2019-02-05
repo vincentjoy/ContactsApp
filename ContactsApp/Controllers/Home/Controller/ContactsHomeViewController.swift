@@ -19,9 +19,9 @@ class ContactsHomeViewController: UIViewController, WebserviceHandler {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchContacts()
         customiseNavigationUI()
         customiseState(state: .Loading)
-        fetchContacts()
     }
     
     private func customiseNavigationUI() {

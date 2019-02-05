@@ -34,7 +34,11 @@ class ImageDownloader: Operation {
         guard let profilePhotoURL = photoObject.profilePhotoURL,
             let url = URL(string: profilePhotoURL),
             let imageData = try? Data(contentsOf: url)
-        else { return }
+        else {
+            photoObject.profilePhotoState = .Failed
+            photoObject.profilePhoto = nil
+            return
+        }
         
         if isCancelled {
             return

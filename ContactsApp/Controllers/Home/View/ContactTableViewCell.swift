@@ -9,38 +9,50 @@
 import UIKit
 
 protocol ChangeFavorite {
-    func changeFavoriteState(at index:Int)
+    func changeFavoriteState(at indexPath: IndexPath)
 }
 
 class ContactTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var profilePictureContainer: UIImageView! {
+        didSet {
+            profilePictureContainer.layer.cornerRadius = profilePictureContainer.frame.width / 2
+            profilePictureContainer.layer.masksToBounds = true
+        }
+    }
+    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var favoriteButton: UIButton!
+    
     var delegate: ChangeFavorite?
+    var indexPath: IndexPath?
 
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    func configureCell(with contact: ContactModel, at index: Int) {
+    func configureCell(with contact: ContactModel, at indexPath: IndexPath) {
         
-        self.textLabel?.text = contact.userName
+        self.userNameLabel.text = contact.userName
+        self.indexPath = indexPath
+        
         if let favorite = contact.favorite {
-            
-            let button = UIButton(type: .custom)
-            
+            favoriteButton.isHidden = false
             let favImage = favorite ? UIImage(named: "favourite_button_selected")! : UIImage(named: "favourite_button")!
-            button.setImage(favImage, for: .normal)
-            
-            button.addTarget(self, action: #selector(self.favorited(sender:)), for: .touchUpInside)
-            button.tag = index
-            button.sizeToFit()
-            self.accessoryView = button
-            
+            favoriteButton.setImage(favImage, for: .normal)
         } else {
-            self.accessoryView = UIView()
+            favoriteButton.isHidden = true
+        }
+        
+        if let image = contact.profilePhoto {
+            self.profilePictureContainer.image = image
+        } else {
+            self.profilePictureContainer.image = UIImage(named: "placeholder_photo")!
         }
     }
     
-    @objc func favorited(sender: UIButton) {
-        self.delegate?.changeFavoriteState(at: sender.tag)
+    @IBAction func favoriteAction(_ sender: UIButton) {
+        if let index = indexPath {
+            self.delegate?.changeFavoriteState(at: index)
+        }
     }
 }

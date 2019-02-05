@@ -10,8 +10,8 @@ import UIKit
 
 class ContactsHomeTableViewDriver: NSObject {
     
-    let tableView: UITableView
-    var contacts = [ContactModel]()
+    private let tableView: UITableView
+    private var groupedContacts = [[ContactModel]]()
     private let pendingOperations = PendingOperations()
     lazy var reuseIdentifier = "ContactCell"
     
@@ -22,15 +22,35 @@ class ContactsHomeTableViewDriver: NSObject {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.rowHeight = 44
     }
     
     func reloadData(contactsData: [Dictionary<String,Any>]) {
+        
+        if let data = try? JSONSerialization.data(withJSONObject: contactsData, options: .prettyPrinted),
+            let str = String(data: data, encoding: .utf8) {
+            print(str)
+        }
+        
+        var contacts = [ContactModel]()
         for contact in contactsData {
             if let contactInstance = ContactModel(data: contact) {
                 contacts.append(contactInstance)
             }
         }
+        contacts = contacts.sorted(by: { $0.userName < $1.userName })
+        
+        groupedContacts = contacts.reduce([[ContactModel]]()) {
+            guard var last = $0.last else { return [[$1]] }
+            var collection = $0
+            if last.first!.userName.first == $1.userName.first {
+                last += [$1]
+                collection[collection.count - 1] = last
+            } else {
+                collection += [[$1]]
+            }
+            return collection
+        }
+        
         tableView.reloadData()
     }
     
@@ -47,7 +67,7 @@ class ContactsHomeTableViewDriver: NSObject {
             }
             DispatchQueue.main.async {
                 self.pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
-                self.tableView.reloadRows(at: [indexPath], with: .none)
+                self.tableView.reloadData()
             }
         }
         
@@ -59,11 +79,11 @@ class ContactsHomeTableViewDriver: NSObject {
 extension ContactsHomeTableViewDriver: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return (contacts.count>0 ? 1 : 0)
+        return (groupedContacts.count>0 ? groupedContacts.count : 0)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contacts.count
+        return groupedContacts[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -72,10 +92,15 @@ extension ContactsHomeTableViewDriver: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        if contacts.count < indexPath.row {
-            let contact = contacts[indexPath.row]
+        if indexPath.row < groupedContacts[indexPath.section].count {
+            
+            let contact = groupedContacts[indexPath.section][indexPath.row]
             cell.delegate = self
-            cell.configureCell(with: contact, at: indexPath.row)
+            cell.configureCell(with: contact, at: indexPath)
+            
+            if contact.profilePhotoState == .New {
+                startDownload(for: contact, at: indexPath)
+            }
         }
         
         return cell
@@ -84,18 +109,37 @@ extension ContactsHomeTableViewDriver: UITableViewDataSource {
 
 extension ContactsHomeTableViewDriver: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 28
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let view = UIView.init(frame:  CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 20))
+        view.backgroundColor = UIColor.groupTableViewBackground
+        
+        let label = UILabel.init(frame: CGRect(x: 16, y: 4, width: (UIScreen.main.bounds.size.width - 32), height: 20))
+        label.text = "\(groupedContacts[section].first!.userName.first!)"
+        
+        view.addSubview(label)
+        return view
     }
 }
 
 extension ContactsHomeTableViewDriver: ChangeFavorite {
     
-    func changeFavoriteState(at index: Int) {
+    func changeFavoriteState(at indexPath: IndexPath) {
         
-        contacts[index].changeFavorite()
+        groupedContacts[indexPath.section][indexPath.row].changeFavorite()
         
-        let indexPath = IndexPath(row: index, section: 0)
         tableView.beginUpdates()
         tableView.reloadRows(at: [indexPath], with: .none)
         tableView.endUpdates()

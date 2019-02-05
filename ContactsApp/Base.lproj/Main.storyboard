@@ -52,13 +52,53 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactCell" id="Dqr-Oh-0c8" customClass="ContactTableViewCell" customModule="ContactsApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactCell" rowHeight="60" id="Dqr-Oh-0c8" customClass="ContactTableViewCell" customModule="ContactsApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Dqr-Oh-0c8" id="Roc-kv-FsZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zvc-Re-Gvm">
+                                                    <rect key="frame" x="16" y="8" width="44" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="Xnz-Nf-1Ew"/>
+                                                        <constraint firstAttribute="width" constant="44" id="pRq-d6-d2T"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGu-uX-pg8">
+                                                    <rect key="frame" x="72" y="21.5" width="261" height="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A2U-wK-HNR">
+                                                    <rect key="frame" x="341" y="21" width="18" height="18"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="18" id="8nu-kC-sfw"/>
+                                                        <constraint firstAttribute="height" constant="18" id="eLq-VO-HOz"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <connections>
+                                                        <action selector="favoriteAction:" destination="Dqr-Oh-0c8" eventType="touchUpInside" id="W2b-AZ-n8x"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="zvc-Re-Gvm" firstAttribute="centerY" secondItem="Roc-kv-FsZ" secondAttribute="centerY" id="29d-ZP-pPZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="A2U-wK-HNR" secondAttribute="trailing" constant="16" id="Isc-EK-UCo"/>
+                                                <constraint firstItem="A2U-wK-HNR" firstAttribute="leading" secondItem="AGu-uX-pg8" secondAttribute="trailing" constant="8" id="Y9B-At-y61"/>
+                                                <constraint firstItem="A2U-wK-HNR" firstAttribute="centerY" secondItem="Roc-kv-FsZ" secondAttribute="centerY" id="dGK-0a-uXl"/>
+                                                <constraint firstItem="AGu-uX-pg8" firstAttribute="centerY" secondItem="Roc-kv-FsZ" secondAttribute="centerY" id="hlS-lh-hbm"/>
+                                                <constraint firstItem="AGu-uX-pg8" firstAttribute="leading" secondItem="zvc-Re-Gvm" secondAttribute="trailing" constant="12" id="jyx-m8-5sS"/>
+                                                <constraint firstItem="zvc-Re-Gvm" firstAttribute="leading" secondItem="Roc-kv-FsZ" secondAttribute="leading" constant="16" id="yEp-b5-arF"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="favoriteButton" destination="A2U-wK-HNR" id="zgA-Gl-MO9"/>
+                                            <outlet property="profilePictureContainer" destination="zvc-Re-Gvm" id="Ui0-5e-PiE"/>
+                                            <outlet property="userNameLabel" destination="AGu-uX-pg8" id="cAG-0X-mrQ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
