@@ -13,6 +13,8 @@ class ContactsHomeTableViewDriver: NSObject {
     private let tableView: UITableView
     private var groupedContacts = [[ContactModel]]()
     private let pendingOperations = PendingOperations()
+    private var alphabets = [String]()
+    
     lazy var reuseIdentifier = "ContactCell"
     
     init(tableView: UITableView) {
@@ -22,14 +24,10 @@ class ContactsHomeTableViewDriver: NSObject {
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.sectionIndexColor = UIColor.ContactsTheme.greenColor
     }
     
     func reloadData(contactsData: [Dictionary<String,Any>]) {
-        
-        if let data = try? JSONSerialization.data(withJSONObject: contactsData, options: .prettyPrinted),
-            let str = String(data: data, encoding: .utf8) {
-            print(str)
-        }
         
         var contacts = [ContactModel]()
         for contact in contactsData {
@@ -37,15 +35,20 @@ class ContactsHomeTableViewDriver: NSObject {
                 contacts.append(contactInstance)
             }
         }
-        contacts = contacts.sorted(by: { $0.userName < $1.userName })
+        contacts = contacts.sorted(by: { $0.userName.uppercased() < $1.userName.uppercased() })
         
         groupedContacts = contacts.reduce([[ContactModel]]()) {
-            guard var last = $0.last else { return [[$1]] }
+            
+            guard var last = $0.last else {
+                return [[$1]]
+            }
+            
             var collection = $0
-            if last.first!.userName.first == $1.userName.first {
+            if last.first!.userName.uppercased().first == $1.userName.uppercased().first {
                 last += [$1]
                 collection[collection.count - 1] = last
             } else {
+                alphabets.append("\(last.first!.userName.first!)".uppercased())
                 collection += [[$1]]
             }
             return collection
@@ -131,6 +134,14 @@ extension ContactsHomeTableViewDriver: UITableViewDelegate {
         
         view.addSubview(label)
         return view
+    }
+    
+    @objc(sectionIndexTitlesForTableView:) func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return alphabets
+    }
+    
+    @objc(tableView:sectionForSectionIndexTitle:atIndex:) func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        return (alphabets.firstIndex(of: title) ?? 0)
     }
 }
 

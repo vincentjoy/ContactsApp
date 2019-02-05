@@ -90,6 +90,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F16BFA8220A062500EB557C /* ContactDetails */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ContactDetails;
+			sourceTree = "<group>";
+		};
 		2FBB9B442208A144006EEB87 = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				2FBB9B842208ABAC006EEB87 /* Home */,
+				2F16BFA8220A062500EB557C /* ContactDetails */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
