@@ -8,8 +8,8 @@
 
 import UIKit
 
-protocol ChangeFavorite {
-    func changeFavoriteState(at indexPath: IndexPath)
+protocol ChangeFavourite {
+    func changeFavouriteState(at indexPath: IndexPath)
 }
 
 class ContactTableViewCell: UITableViewCell {
@@ -23,7 +23,7 @@ class ContactTableViewCell: UITableViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     
-    var delegate: ChangeFavorite?
+    var delegate: ChangeFavourite?
     var indexPath: IndexPath?
 
     override func awakeFromNib() {
@@ -35,9 +35,9 @@ class ContactTableViewCell: UITableViewCell {
         self.userNameLabel.text = contact.userName
         self.indexPath = indexPath
         
-        if let favorite = contact.favorite {
+        if let favourite = contact.favourite {
             favoriteButton.isHidden = false
-            let favImage = favorite ? UIImage(named: "favourite_button_selected")! : UIImage(named: "favourite_button")!
+            let favImage = favourite ? UIImage(named: "favourite_button_selected")! : UIImage(named: "favourite_button")!
             favoriteButton.setImage(favImage, for: .normal)
         } else {
             favoriteButton.isHidden = true
@@ -52,7 +52,7 @@ class ContactTableViewCell: UITableViewCell {
     
     @IBAction func favoriteAction(_ sender: UIButton) {
         if let index = indexPath {
-            self.delegate?.changeFavoriteState(at: index)
+            self.delegate?.changeFavouriteState(at: index)
         }
     }
 }

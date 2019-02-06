@@ -148,11 +148,11 @@ extension ContactsHomeTableViewDriver: UITableViewDelegate {
     }
 }
 
-extension ContactsHomeTableViewDriver: ChangeFavorite {
+extension ContactsHomeTableViewDriver: ChangeFavourite {
     
-    func changeFavoriteState(at indexPath: IndexPath) {
+    func changeFavouriteState(at indexPath: IndexPath) {
         
-        groupedContacts[indexPath.section][indexPath.row].changeFavorite()
+        groupedContacts[indexPath.section][indexPath.row].changeFavourite()
         
         tableView.beginUpdates()
         tableView.reloadRows(at: [indexPath], with: .none)
