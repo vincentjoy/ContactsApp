@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F138625220B813200792A03 /* ContactDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F138624220B813200792A03 /* ContactDetailsTableViewController.swift */; };
+		2F138627220B815000792A03 /* AddEditContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F138626220B815000792A03 /* AddEditContactsTableViewController.swift */; };
+		2F138629220B827F00792A03 /* ContactDetailsOutletObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F138628220B827F00792A03 /* ContactDetailsOutletObject.swift */; };
+		2F16BFAC220A09A000EB557C /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F16BFAB220A09A000EB557C /* MainNavigationController.swift */; };
 		2FBB9B512208A144006EEB87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B502208A144006EEB87 /* AppDelegate.swift */; };
 		2FBB9B562208A144006EEB87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FBB9B542208A144006EEB87 /* Main.storyboard */; };
 		2FBB9B582208A146006EEB87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FBB9B572208A146006EEB87 /* Assets.xcassets */; };
@@ -42,6 +46,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F138624220B813200792A03 /* ContactDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsTableViewController.swift; sourceTree = "<group>"; };
+		2F138626220B815000792A03 /* AddEditContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditContactsTableViewController.swift; sourceTree = "<group>"; };
+		2F138628220B827F00792A03 /* ContactDetailsOutletObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsOutletObject.swift; sourceTree = "<group>"; };
+		2F16BFAB220A09A000EB557C /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		2FBB9B4D2208A144006EEB87 /* ContactsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FBB9B502208A144006EEB87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2FBB9B552208A144006EEB87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -90,9 +98,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F138618220B695500792A03 /* AddEditContacts */ = {
+			isa = PBXGroup;
+			children = (
+				2F138626220B815000792A03 /* AddEditContactsTableViewController.swift */,
+			);
+			path = AddEditContacts;
+			sourceTree = "<group>";
+		};
 		2F16BFA8220A062500EB557C /* ContactDetails */ = {
 			isa = PBXGroup;
 			children = (
+				2F138628220B827F00792A03 /* ContactDetailsOutletObject.swift */,
+				2F138624220B813200792A03 /* ContactDetailsTableViewController.swift */,
 			);
 			path = ContactDetails;
 			sourceTree = "<group>";
@@ -198,8 +216,10 @@
 		2FBB9B982208F358006EEB87 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2F16BFAB220A09A000EB557C /* MainNavigationController.swift */,
 				2FBB9B842208ABAC006EEB87 /* Home */,
 				2F16BFA8220A062500EB557C /* ContactDetails */,
+				2F138618220B695500792A03 /* AddEditContacts */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -347,9 +367,13 @@
 				2FBB9B802208A181006EEB87 /* ContactsHomeViewController.swift in Sources */,
 				2FBB9B902208CDD0006EEB87 /* CustomMethods.swift in Sources */,
 				2FBB9B932208D6D9006EEB87 /* ContactModel.swift in Sources */,
+				2F138627220B815000792A03 /* AddEditContactsTableViewController.swift in Sources */,
+				2F138629220B827F00792A03 /* ContactDetailsOutletObject.swift in Sources */,
 				2FBB9B8E2208CD2B006EEB87 /* UIExtensions.swift in Sources */,
+				2F138625220B813200792A03 /* ContactDetailsTableViewController.swift in Sources */,
 				2FBB9B9C2208F402006EEB87 /* PhotoOperations.swift in Sources */,
 				2FBB9B8C2208BED3006EEB87 /* Webservice.swift in Sources */,
+				2F16BFAC220A09A000EB557C /* MainNavigationController.swift in Sources */,
 				2FBB9B862208AC07006EEB87 /* ContactsHomeTableViewDriver.swift in Sources */,
 				2FBB9B972208E57F006EEB87 /* ContactTableViewCell.swift in Sources */,
 				2FBB9B882208B620006EEB87 /* ContactsHomeOutletObject.swift in Sources */,

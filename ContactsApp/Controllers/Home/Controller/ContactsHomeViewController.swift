@@ -15,26 +15,13 @@ enum ViewState {
 class ContactsHomeViewController: UIViewController, WebserviceHandler {
 
     @IBOutlet var outletObject: ContactsHomeOutletObject!
+    
     private var tableViewDriver: ContactsHomeTableViewDriver?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchContacts()
-        customiseNavigationUI()
         customiseState(state: .Loading)
-    }
-    
-    private func customiseNavigationUI() {
-        
-        self.title = "Contact"
-    
-        let add = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addContacts))
-        self.navigationItem.rightBarButtonItem = add
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.ContactsTheme.greenColor
-        
-        let groups = UIBarButtonItem.init(title: "Groups", style: .plain, target: self, action: #selector(self.addContacts))
-        self.navigationItem.leftBarButtonItem = groups
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.ContactsTheme.greenColor
     }
     
     private func customiseState(state: ViewState) {
@@ -83,15 +70,7 @@ class ContactsHomeViewController: UIViewController, WebserviceHandler {
     }
     
     private func customiseTableView(contactsData: [Dictionary<String,Any>]) {
-        tableViewDriver = ContactsHomeTableViewDriver(tableView: self.outletObject.tableView)
+        tableViewDriver = ContactsHomeTableViewDriver(tableView: self.outletObject.tableView, parent: self)
         tableViewDriver?.reloadData(contactsData: contactsData)
-    }
-    
-    @objc func addContacts() {
-        print("Show Add Contacts")
-    }
-    
-    @objc func showGroups() {
-        print("Show Groups")
     }
 }

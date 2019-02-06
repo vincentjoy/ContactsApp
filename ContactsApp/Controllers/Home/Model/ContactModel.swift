@@ -17,6 +17,8 @@ class ContactModel {
     var id: Int
     var favorite: Bool?
     var userName = ""
+    var phoneNumber = ""
+    var email = ""
     var profilePhotoURL: String?
     var profilePhotoState = ProfilePhotoState.New
     var profilePhoto: UIImage?
@@ -37,6 +39,14 @@ class ContactModel {
             if let lastName = data["last_name"] as? String {
                 userName += " \(lastName)"
             }
+        }
+        
+        if let phoneNumber = data["phone_number"] as? String {
+            self.phoneNumber = phoneNumber
+        }
+        
+        if let email = data["email"] as? String {
+            self.email = email
         }
         
         if let profilePic = data["profile_pic"] as? String, !profilePic.contains("/images/missing.png") {

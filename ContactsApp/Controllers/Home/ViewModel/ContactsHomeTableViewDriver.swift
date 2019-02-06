@@ -15,13 +15,15 @@ class ContactsHomeTableViewDriver: NSObject {
     private let pendingOperations = PendingOperations()
     private var alphabets = [String]()
     
+    weak var parent: ContactsHomeViewController?
     lazy var reuseIdentifier = "ContactCell"
     
-    init(tableView: UITableView) {
+    init(tableView: UITableView, parent: ContactsHomeViewController) {
         
         self.tableView = tableView
         super.init()
         
+        self.parent = parent
         tableView.delegate = self
         tableView.dataSource = self
         tableView.sectionIndexColor = UIColor.ContactsTheme.greenColor
@@ -56,27 +58,6 @@ class ContactsHomeTableViewDriver: NSObject {
         
         tableView.reloadData()
     }
-    
-    private func startDownload(for photoData: ContactModel, at indexPath: IndexPath) {
-        
-        guard pendingOperations.downloadsInProgress[indexPath] == nil else {
-                return
-        }
-        
-        let downloader = ImageDownloader(photoData)
-        downloader.completionBlock = {
-            if downloader.isCancelled {
-                return
-            }
-            DispatchQueue.main.async {
-                self.pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
-                self.tableView.reloadData()
-            }
-        }
-        
-        pendingOperations.downloadsInProgress[indexPath] = downloader
-        pendingOperations.downloadQueue.addOperation(downloader)
-    }
 }
 
 extension ContactsHomeTableViewDriver: UITableViewDataSource {
@@ -108,6 +89,27 @@ extension ContactsHomeTableViewDriver: UITableViewDataSource {
         
         return cell
     }
+    
+    private func startDownload(for photoData: ContactModel, at indexPath: IndexPath) {
+        
+        guard pendingOperations.downloadsInProgress[indexPath] == nil else {
+            return
+        }
+        
+        let downloader = ImageDownloader(photoData)
+        downloader.completionBlock = {
+            if downloader.isCancelled {
+                return
+            }
+            DispatchQueue.main.async {
+                self.pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
+                self.tableView.reloadData()
+            }
+        }
+        
+        pendingOperations.downloadsInProgress[indexPath] = downloader
+        pendingOperations.downloadQueue.addOperation(downloader)
+    }
 }
 
 extension ContactsHomeTableViewDriver: UITableViewDelegate {
@@ -117,7 +119,8 @@ extension ContactsHomeTableViewDriver: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        let contact = groupedContacts[indexPath.section][indexPath.row]
+        (self.parent?.navigationController as? MainNavigationController)?.showContactDetails(for: contact)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
