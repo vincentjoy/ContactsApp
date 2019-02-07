@@ -14,6 +14,7 @@ class ContactsHomeTableViewDriver: NSObject {
     private var groupedContacts = [[ContactModel]]()
     private let pendingOperations = PendingOperations()
     private var alphabets = [String]()
+    private let imageCache = NSCache<NSString, UIImage>()
     
     weak var parent: ContactsHomeViewController?
     lazy var reuseIdentifier = "ContactCell"
@@ -27,6 +28,7 @@ class ContactsHomeTableViewDriver: NSObject {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.sectionIndexColor = UIColor.ContactsTheme.greenColor
+        imageCache.countLimit = 30
     }
     
     func reloadData(contactsData: [Dictionary<String,Any>]) {
@@ -92,23 +94,35 @@ extension ContactsHomeTableViewDriver: UITableViewDataSource {
     
     private func startDownload(for photoData: ContactModel, at indexPath: IndexPath) {
         
-        guard pendingOperations.downloadsInProgress[indexPath] == nil else {
+        guard pendingOperations.downloadsInProgress[indexPath] == nil, let urlString = photoData.profilePhotoURL else {
             return
         }
         
-        let downloader = ImageDownloader(photoData)
-        downloader.completionBlock = {
-            if downloader.isCancelled {
-                return
+        if let cachedImage = imageCache.object(forKey: urlString as NSString) {
+            
+            photoData.profilePhoto = cachedImage
+            self.pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
+            self.tableView.reloadData()
+            
+        } else {
+            
+            let downloader = ImageDownloader(photoData)
+            downloader.completionBlock = {
+                if downloader.isCancelled {
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
+                    self.tableView.reloadData()
+                    if let downloadedImage = downloader.photoObject.profilePhoto {
+                        self.imageCache.setObject(downloadedImage, forKey: urlString as NSString)
+                    }
+                }
             }
-            DispatchQueue.main.async {
-                self.pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
-                self.tableView.reloadData()
-            }
+            
+            pendingOperations.downloadsInProgress[indexPath] = downloader
+            pendingOperations.downloadQueue.addOperation(downloader)
         }
-        
-        pendingOperations.downloadsInProgress[indexPath] = downloader
-        pendingOperations.downloadQueue.addOperation(downloader)
     }
 }
 

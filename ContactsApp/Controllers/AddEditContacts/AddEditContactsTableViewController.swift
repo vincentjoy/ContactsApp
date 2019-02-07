@@ -8,14 +8,32 @@
 
 import UIKit
 
-class AddEditContactsTableViewController: UITableViewController {
+class AddEditContactsTableViewController: UITableViewController, InputAccessoryProtocol {
     
     @IBOutlet var outletObject: AddEditContactsOutletObject!
 
-    var editContacts = true
+    var contact: ContactModel?
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        for (index, tf) in outletObject.fieldEntry.enumerated() {
+            tf.delegate = self
+            tf.tag = index
+            tf.inputAccessoryView = createInputAccessoryView()
+        }
+        
+        if let contact = contact {
+            outletObject.setupUIForEdit(contact: contact)
+        }
+        
+        outletObject.fieldEntry[ProfileTextField.FName.rawValue].becomeFirstResponder()
+    }
+    
+    @objc func doneTouched() {
+        tableView.endEditing(true)
     }
     
     @objc func doneAction() {
@@ -53,6 +71,18 @@ class AddEditContactsTableViewController: UITableViewController {
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
+    }
+}
+
+extension AddEditContactsTableViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.tag == ProfileTextField.Email.rawValue {
+            tableView.endEditing(true)
+        } else {
+            outletObject.fieldEntry[textField.tag+1].becomeFirstResponder()
+        }
+        return true
     }
 }
 

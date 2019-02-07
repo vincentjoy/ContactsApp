@@ -9,8 +9,10 @@
 import UIKit
 
 class CircularImageView: UIImageView {
-
-    override func draw(_ rect: CGRect) {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
         self.layer.cornerRadius = self.bounds.width/2
         self.layer.masksToBounds = true
     }

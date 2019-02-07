@@ -51,6 +51,8 @@ class WebService {
             return
         }
         
+        print(url.Route)
+        
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         var request = URLRequest(url: dataSourceURL)

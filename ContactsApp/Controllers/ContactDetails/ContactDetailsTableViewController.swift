@@ -9,7 +9,7 @@
 import UIKit
 import MessageUI
 
-class ContactDetailsTableViewController: UITableViewController, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate {
+class ContactDetailsTableViewController: UITableViewController, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, WebserviceHandler {
     
     @IBOutlet var outletObject: ContactDetailsOutletObject!
     
@@ -21,7 +21,30 @@ class ContactDetailsTableViewController: UITableViewController, MFMessageCompose
         
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         if let contact = contact {
-            outletObject.setUI(with: contact)
+            outletObject.initialiseUI(with: contact)
+            updateUI(contact: contact)
+        }
+    }
+    
+    private func updateUI(contact: ContactModel) {
+        
+        guard checkNetwork() else {
+            self.handleError(title: "No Internet", message: "Please check your connection")
+            return
+        }
+        
+        WebService.shared.request(method: .Get, url: WebServiceRoute.ContactOperations(.BaseURL, .ContactOperations, "\(contact.id)")) { (result) in
+            switch result {
+            case .Success(let data):
+                if let contactsData = data as? [String:Any] {
+                    contact.updateDetails(data: contactsData)
+                    self.outletObject.initialiseUI(with: contact)
+                } else {
+                    self.handleError(message: "No data found")
+                }
+            case .Failure(let error):
+                self.handleError(message: error)
+            }
         }
     }
     
@@ -82,6 +105,6 @@ class ContactDetailsTableViewController: UITableViewController, MFMessageCompose
     }
     
     @objc func editContact() {
-        (self.navigationController as? MainNavigationController)?.showAddOrEditContacts(for: true)
+        (self.navigationController as? MainNavigationController)?.showAddOrEditContacts(with: contact)
     }
 }

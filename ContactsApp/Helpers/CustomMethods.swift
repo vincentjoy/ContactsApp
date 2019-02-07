@@ -14,6 +14,10 @@ protocol WebserviceHandler: class {
     func handleError(title: String?, message: String)
 }
 
+protocol InputAccessoryProtocol: class {
+    func createInputAccessoryView () -> UIToolbar
+}
+
 extension WebserviceHandler where Self: UIViewController {
     
     func checkNetwork() -> Bool {
@@ -47,4 +51,20 @@ extension WebserviceHandler where Self: UIViewController {
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion:nil)
     }
+}
+
+extension InputAccessoryProtocol where Self: UIViewController {
+    
+    func createInputAccessoryView () -> UIToolbar {
+        
+        let toolbarAccessoryView = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: 44))
+        toolbarAccessoryView.barStyle = .default
+        toolbarAccessoryView.tintColor = UIColor.ContactsTheme.greenColor
+        let flexSpace = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target:nil, action:nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem:.done, target:self, action:Selector(("doneTouched")))
+        toolbarAccessoryView.setItems([flexSpace, doneButton], animated: false)
+        
+        return toolbarAccessoryView
+    }
+    
 }

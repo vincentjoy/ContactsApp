@@ -24,10 +24,10 @@ class ContactDetailsOutletObject: NSObject {
     @IBOutlet weak var mobile: UILabel!
     @IBOutlet weak var email: UILabel!
     
-    func setUI(with contact: ContactModel) {
+    func initialiseUI(with contact: ContactModel) {
         
-        mobile.text = contact.phoneNumber ?? "Nil"
-        email.text = contact.email ?? "Nil"
+        mobile.text = contact.phoneNumber ?? ""
+        email.text = contact.email ?? ""
         userName.text = contact.userName
         
         if let img = contact.profilePhoto {

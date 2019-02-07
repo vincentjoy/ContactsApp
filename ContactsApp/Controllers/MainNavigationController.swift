@@ -37,14 +37,14 @@ class MainNavigationController: UINavigationController {
     }
     
     @objc func addContacts() {
-        showAddOrEditContacts(for: false)
+        showAddOrEditContacts(with: nil)
     }
     
     @objc func showGroups() {
         print("Show Groups")
     }
     
-    func showAddOrEditContacts(for edit: Bool) {
+    func showAddOrEditContacts(with data: ContactModel?) {
         
         if let addContactsVC = self.storyboard?.instantiateViewController(withIdentifier: AddEditContactsIdentifier) as? AddEditContactsTableViewController {
             
@@ -54,7 +54,7 @@ class MainNavigationController: UINavigationController {
             let cancel = UIBarButtonItem.init(title: "Cancel", style: .plain, target: addContactsVC, action: #selector(addContactsVC.cancelAction))
             addContactsVC.navigationItem.leftBarButtonItem = cancel
             
-            addContactsVC.editContacts = edit
+            addContactsVC.contact = data
             self.pushViewController(addContactsVC, animated: true)
         }
     }

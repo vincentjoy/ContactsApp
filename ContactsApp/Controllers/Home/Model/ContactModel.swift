@@ -16,6 +16,8 @@ class ContactModel {
     
     var id: Int
     var favourite = false
+    var firstName = ""
+    var lastName = ""
     var userName = ""
     var phoneNumber: String?
     var email: String?
@@ -34,19 +36,13 @@ class ContactModel {
             self.favourite = favourite
         }
         
-        if let firstName = data["first_name"] as? String {
-            userName = firstName
-            if let lastName = data["last_name"] as? String {
+        if let FName = data["first_name"] as? String {
+            userName = FName
+            firstName = FName
+            if let LName = data["last_name"] as? String {
                 userName += " \(lastName)"
+                lastName = LName
             }
-        }
-        
-        if let phoneNumber = data["phone_number"] as? String {
-            self.phoneNumber = phoneNumber
-        }
-        
-        if let email = data["email"] as? String {
-            self.email = email
         }
         
         if let profilePic = data["profile_pic"] as? String, !profilePic.contains("/images/missing.png") {
@@ -56,5 +52,16 @@ class ContactModel {
     
     func changeFavourite() {
         favourite = !favourite
+    }
+    
+    func updateDetails(data: [String:Any]) {
+        
+        if let phoneNumber = data["phone_number"] as? String {
+            self.phoneNumber = phoneNumber
+        }
+        
+        if let email = data["email"] as? String {
+            self.email = email
+        }
     }
 }

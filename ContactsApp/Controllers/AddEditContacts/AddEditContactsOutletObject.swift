@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum ProfileTextField: Int {
+    case FName, LName, Mobile, Email
+}
+
 class AddEditContactsOutletObject: NSObject {
 
     @IBOutlet weak var headerView: UIView! {
@@ -20,6 +24,23 @@ class AddEditContactsOutletObject: NSObject {
         didSet {
             cameraButton.layer.cornerRadius = cameraButton.bounds.width/2
             cameraButton.layer.masksToBounds = true
+        }
+    }
+    @IBOutlet var fieldTitle: [UILabel]!
+    @IBOutlet var fieldEntry: [UITextField]!
+    
+    func setupUIForEdit(contact: ContactModel) {
+        
+        for tf in fieldEntry {
+            if tf.tag==ProfileTextField.FName.rawValue {
+                tf.text = contact.firstName
+            } else if tf.tag==ProfileTextField.LName.rawValue {
+                tf.text = contact.lastName
+            } else if tf.tag==ProfileTextField.Mobile.rawValue {
+                tf.text = contact.phoneNumber ?? ""
+            } else if tf.tag==ProfileTextField.Email.rawValue {
+                tf.text = contact.email ?? ""
+            }
         }
     }
 }
