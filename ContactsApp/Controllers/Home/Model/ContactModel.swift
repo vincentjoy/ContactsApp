@@ -15,7 +15,7 @@ enum ProfilePhotoState {
 class ContactModel {
     
     var id: Int
-    var favourite: Bool?
+    var favourite = false
     var userName = ""
     var phoneNumber: String?
     var email: String?
@@ -30,7 +30,7 @@ class ContactModel {
         }
         self.id = id
         
-        if let favourite = data["favorite"] as? Bool, favourite {
+        if let favourite = data["favorite"] as? Bool {
             self.favourite = favourite
         }
         
@@ -55,8 +55,6 @@ class ContactModel {
     }
     
     func changeFavourite() {
-        if let favourite = self.favourite {
-            self.favourite = !favourite
-        }
+        favourite = !favourite
     }
 }

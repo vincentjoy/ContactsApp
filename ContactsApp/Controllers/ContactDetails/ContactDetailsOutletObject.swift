@@ -24,6 +24,7 @@ class ContactDetailsOutletObject: NSObject {
     @IBOutlet weak var smsButton: UIButton!
     @IBOutlet weak var callButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var favouriteButton: UIButton!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var mobile: UILabel!
     @IBOutlet weak var email: UILabel!
@@ -62,5 +63,8 @@ class ContactDetailsOutletObject: NSObject {
             emailButton.isEnabled = false
             emailButton.alpha = 0.7
         }
+        
+        let favImage = contact.favourite ? UIImage(named: "favourite_button_selected")! : UIImage(named: "favourite_button")!
+        favouriteButton.setImage(favImage, for: .normal)
     }
 }

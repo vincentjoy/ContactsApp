@@ -380,6 +380,7 @@
                         <outlet property="callButton" destination="JqP-6T-K3V" id="aoN-P1-7Vr"/>
                         <outlet property="email" destination="raE-po-chs" id="bYe-TH-UAi"/>
                         <outlet property="emailButton" destination="hgv-3F-uzk" id="PlI-yo-hxq"/>
+                        <outlet property="favouriteButton" destination="ovP-td-zn0" id="zhc-7D-lEW"/>
                         <outlet property="headerView" destination="X1t-2X-Kd6" id="aVj-6k-5xs"/>
                         <outlet property="mobile" destination="iW1-68-Rqi" id="CjY-I0-MUM"/>
                         <outlet property="profilePicture" destination="dN4-j8-LBI" id="rhL-ZN-nyc"/>

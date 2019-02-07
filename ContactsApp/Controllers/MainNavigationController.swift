@@ -10,6 +10,7 @@ import UIKit
 
 class MainNavigationController: UINavigationController {
 
+    var reloadHomeTableView = false
     private lazy var ContactDetailsIdentifier = "ContactDetailsTVC"
     private lazy var AddEditContactsIdentifier = "AddEditContactsTVC"
     
@@ -82,5 +83,10 @@ extension MainNavigationController: UINavigationControllerDelegate {
             navigationBar.shadowImage = UIImage()
         }
         navigationBar.layoutIfNeeded()
+        
+        if viewController.isKind(of: ContactsHomeViewController.self) && reloadHomeTableView {
+            (viewController as? ContactsHomeViewController)?.outletObject.tableView.reloadData()
+            reloadHomeTableView = !reloadHomeTableView
+        }
     }
 }
