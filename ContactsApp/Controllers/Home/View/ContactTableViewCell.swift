@@ -34,11 +34,7 @@ class ContactTableViewCell: UITableViewCell {
         
         self.userNameLabel.text = contact.userName
         self.indexPath = indexPath
-        
         favoriteButton.isHidden = !contact.favourite
-        if contact.favourite {
-            favoriteButton.setImage(UIImage(named: "favourite_button_selected")!, for: .normal)
-        }
         
         if let image = contact.profilePhoto {
             self.profilePictureContainer.image = image
