@@ -412,20 +412,23 @@
                                     </constraints>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="44f-rU-sQY">
-                                    <rect key="frame" x="215.5" y="110.5" width="44" height="44"/>
+                                    <rect key="frame" x="204.5" y="99.5" width="44" height="44"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="44" id="8uq-Xk-Skz"/>
                                         <constraint firstAttribute="height" constant="44" id="MdM-mr-3o2"/>
                                     </constraints>
                                     <state key="normal" image="camera_button"/>
+                                    <connections>
+                                        <action selector="addPhoto:" destination="gfu-vx-hve" eventType="touchUpInside" id="rHd-kJ-77z"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="HA6-PT-MxM" firstAttribute="centerY" secondItem="5NJ-7R-wa8" secondAttribute="centerY" id="H4c-YZ-9Ud"/>
-                                <constraint firstItem="44f-rU-sQY" firstAttribute="trailing" secondItem="HA6-PT-MxM" secondAttribute="trailing" constant="22" id="Mvd-IW-Flf"/>
-                                <constraint firstItem="44f-rU-sQY" firstAttribute="bottom" secondItem="HA6-PT-MxM" secondAttribute="bottom" constant="22" id="cem-ef-QDY"/>
+                                <constraint firstItem="44f-rU-sQY" firstAttribute="trailing" secondItem="HA6-PT-MxM" secondAttribute="trailing" constant="11" id="Mvd-IW-Flf"/>
+                                <constraint firstItem="44f-rU-sQY" firstAttribute="bottom" secondItem="HA6-PT-MxM" secondAttribute="bottom" constant="11" id="cem-ef-QDY"/>
                                 <constraint firstItem="HA6-PT-MxM" firstAttribute="centerX" secondItem="5NJ-7R-wa8" secondAttribute="centerX" id="lDM-6Z-78K"/>
                             </constraints>
                         </view>
