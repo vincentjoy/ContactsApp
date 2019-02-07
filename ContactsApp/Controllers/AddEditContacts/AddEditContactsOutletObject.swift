@@ -9,7 +9,21 @@
 import UIKit
 
 enum ProfileTextField: Int {
+    
     case FName, LName, Mobile, Email
+    
+    var keyName: String {
+        switch self {
+        case .FName:
+            return "first_name"
+        case .LName:
+            return "last_name"
+        case .Mobile:
+            return "phone_number"
+        case .Email:
+            return "email"
+        }
+    }
 }
 
 class AddEditContactsOutletObject: NSObject {
@@ -26,7 +40,6 @@ class AddEditContactsOutletObject: NSObject {
             cameraButton.layer.masksToBounds = true
         }
     }
-    @IBOutlet var fieldTitle: [UILabel]!
     @IBOutlet var fieldEntry: [UITextField]!
     
     func setupUIForEdit(contact: ContactModel) {

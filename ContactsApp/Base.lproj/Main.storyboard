@@ -452,7 +452,7 @@
                                                     <rect key="frame" x="120" y="0.0" width="239" height="43.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" textContentType="name"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" smartDashesType="no" textContentType="name"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -484,7 +484,7 @@
                                                     <rect key="frame" x="120" y="0.0" width="239" height="43.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next" textContentType="name"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" smartDashesType="no" textContentType="name"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -581,10 +581,6 @@
                         <outlet property="cameraButton" destination="44f-rU-sQY" id="N8b-0l-I3G"/>
                         <outlet property="headerView" destination="5NJ-7R-wa8" id="3la-ro-WRZ"/>
                         <outlet property="profilePicture" destination="HA6-PT-MxM" id="XnG-HE-HRs"/>
-                        <outletCollection property="fieldTitle" destination="Mzc-EO-bR4" collectionClass="NSMutableArray" id="YNN-l2-gDM"/>
-                        <outletCollection property="fieldTitle" destination="On0-oz-RkC" collectionClass="NSMutableArray" id="tML-cw-4I0"/>
-                        <outletCollection property="fieldTitle" destination="DzA-C2-azl" collectionClass="NSMutableArray" id="mMz-DN-Nqn"/>
-                        <outletCollection property="fieldTitle" destination="qLc-Mj-KEO" collectionClass="NSMutableArray" id="Ras-7I-Vhj"/>
                         <outletCollection property="fieldEntry" destination="SsW-Z2-GlZ" collectionClass="NSMutableArray" id="KQO-JP-20b"/>
                         <outletCollection property="fieldEntry" destination="PJe-2G-LfK" collectionClass="NSMutableArray" id="evs-rt-b4n"/>
                         <outletCollection property="fieldEntry" destination="Sab-5M-d4I" collectionClass="NSMutableArray" id="3IB-L8-QcQ"/>
