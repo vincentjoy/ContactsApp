@@ -15,12 +15,7 @@ class ContactDetailsOutletObject: NSObject {
             headerView.backgroundColor = UIColor.ContactsTheme.navBarColor
         }
     }
-    @IBOutlet weak var profilePicture: UIImageView! {
-        didSet {
-            profilePicture.layer.cornerRadius = profilePicture.bounds.width/2
-            profilePicture.layer.masksToBounds = true
-        }
-    }
+    @IBOutlet weak var profilePicture: CircularImageView!
     @IBOutlet weak var smsButton: UIButton!
     @IBOutlet weak var callButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!

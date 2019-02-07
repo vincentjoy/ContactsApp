@@ -9,6 +9,8 @@
 import UIKit
 
 class AddEditContactsTableViewController: UITableViewController {
+    
+    @IBOutlet var outletObject: AddEditContactsOutletObject!
 
     var editContacts = true
     

@@ -10,6 +10,8 @@
 		2F138625220B813200792A03 /* ContactDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F138624220B813200792A03 /* ContactDetailsTableViewController.swift */; };
 		2F138627220B815000792A03 /* AddEditContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F138626220B815000792A03 /* AddEditContactsTableViewController.swift */; };
 		2F138629220B827F00792A03 /* ContactDetailsOutletObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F138628220B827F00792A03 /* ContactDetailsOutletObject.swift */; };
+		2F13862B220C162100792A03 /* AddEditContactsOutletObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F13862A220C162100792A03 /* AddEditContactsOutletObject.swift */; };
+		2F13862E220C184A00792A03 /* CircularImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F13862D220C184A00792A03 /* CircularImageView.swift */; };
 		2F16BFAC220A09A000EB557C /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F16BFAB220A09A000EB557C /* MainNavigationController.swift */; };
 		2FBB9B512208A144006EEB87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBB9B502208A144006EEB87 /* AppDelegate.swift */; };
 		2FBB9B562208A144006EEB87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FBB9B542208A144006EEB87 /* Main.storyboard */; };
@@ -49,6 +51,8 @@
 		2F138624220B813200792A03 /* ContactDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsTableViewController.swift; sourceTree = "<group>"; };
 		2F138626220B815000792A03 /* AddEditContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditContactsTableViewController.swift; sourceTree = "<group>"; };
 		2F138628220B827F00792A03 /* ContactDetailsOutletObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsOutletObject.swift; sourceTree = "<group>"; };
+		2F13862A220C162100792A03 /* AddEditContactsOutletObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditContactsOutletObject.swift; sourceTree = "<group>"; };
+		2F13862D220C184A00792A03 /* CircularImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImageView.swift; sourceTree = "<group>"; };
 		2F16BFAB220A09A000EB557C /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		2FBB9B4D2208A144006EEB87 /* ContactsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FBB9B502208A144006EEB87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,9 +105,18 @@
 		2F138618220B695500792A03 /* AddEditContacts */ = {
 			isa = PBXGroup;
 			children = (
+				2F13862A220C162100792A03 /* AddEditContactsOutletObject.swift */,
 				2F138626220B815000792A03 /* AddEditContactsTableViewController.swift */,
 			);
 			path = AddEditContacts;
+			sourceTree = "<group>";
+		};
+		2F13862C220C183300792A03 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2F13862D220C184A00792A03 /* CircularImageView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		2F16BFA8220A062500EB557C /* ContactDetails */ = {
@@ -144,6 +157,7 @@
 				2FBB9B5C2208A146006EEB87 /* Info.plist */,
 				2FBB9B502208A144006EEB87 /* AppDelegate.swift */,
 				2FBB9B812208A7A7006EEB87 /* Helpers */,
+				2F13862C220C183300792A03 /* Views */,
 				2FBB9B982208F358006EEB87 /* Controllers */,
 			);
 			path = ContactsApp;
@@ -369,7 +383,9 @@
 				2FBB9B932208D6D9006EEB87 /* ContactModel.swift in Sources */,
 				2F138627220B815000792A03 /* AddEditContactsTableViewController.swift in Sources */,
 				2F138629220B827F00792A03 /* ContactDetailsOutletObject.swift in Sources */,
+				2F13862E220C184A00792A03 /* CircularImageView.swift in Sources */,
 				2FBB9B8E2208CD2B006EEB87 /* UIExtensions.swift in Sources */,
+				2F13862B220C162100792A03 /* AddEditContactsOutletObject.swift in Sources */,
 				2F138625220B813200792A03 /* ContactDetailsTableViewController.swift in Sources */,
 				2FBB9B9C2208F402006EEB87 /* PhotoOperations.swift in Sources */,
 				2FBB9B8C2208BED3006EEB87 /* Webservice.swift in Sources */,

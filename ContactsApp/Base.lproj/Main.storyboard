@@ -59,7 +59,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zvc-Re-Gvm">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zvc-Re-Gvm" customClass="CircularImageView" customModule="ContactsApp" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="8" width="44" height="44"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="Xnz-Nf-1Ew"/>
@@ -97,7 +97,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="favoriteButton" destination="A2U-wK-HNR" id="zgA-Gl-MO9"/>
-                                            <outlet property="profilePictureContainer" destination="zvc-Re-Gvm" id="Ui0-5e-PiE"/>
+                                            <outlet property="profilePictureContainer" destination="zvc-Re-Gvm" id="5DI-DI-VeX"/>
                                             <outlet property="userNameLabel" destination="AGu-uX-pg8" id="cAG-0X-mrQ"/>
                                         </connections>
                                     </tableViewCell>
@@ -144,7 +144,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="235"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_photo" translatesAutoresizingMaskIntoConstraints="NO" id="dN4-j8-LBI">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_photo" translatesAutoresizingMaskIntoConstraints="NO" id="dN4-j8-LBI" customClass="CircularImageView" customModule="ContactsApp" customModuleProvider="target">
                                     <rect key="frame" x="137.5" y="16" width="100" height="100"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="100" id="K39-hW-awI"/>
@@ -384,7 +384,7 @@
                         <outlet property="favouriteButton" destination="ovP-td-zn0" id="zhc-7D-lEW"/>
                         <outlet property="headerView" destination="X1t-2X-Kd6" id="aVj-6k-5xs"/>
                         <outlet property="mobile" destination="iW1-68-Rqi" id="CjY-I0-MUM"/>
-                        <outlet property="profilePicture" destination="dN4-j8-LBI" id="rhL-ZN-nyc"/>
+                        <outlet property="profilePicture" destination="dN4-j8-LBI" id="eer-RT-iAm"/>
                         <outlet property="smsButton" destination="aVP-T5-qL4" id="7CJ-Jy-0LY"/>
                         <outlet property="userName" destination="uJG-8w-LFn" id="MQa-yP-2Jp"/>
                     </connections>
@@ -400,9 +400,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="5NJ-7R-wa8">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="165"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_photo" translatesAutoresizingMaskIntoConstraints="NO" id="HA6-PT-MxM" customClass="CircularImageView" customModule="ContactsApp" customModuleProvider="target">
+                                    <rect key="frame" x="137.5" y="32.5" width="100" height="100"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="ZvB-er-7pf"/>
+                                        <constraint firstAttribute="height" constant="100" id="nV0-fH-MXN"/>
+                                    </constraints>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="44f-rU-sQY">
+                                    <rect key="frame" x="215.5" y="110.5" width="44" height="44"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="44" id="8uq-Xk-Skz"/>
+                                        <constraint firstAttribute="height" constant="44" id="MdM-mr-3o2"/>
+                                    </constraints>
+                                    <state key="normal" image="camera_button"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="HA6-PT-MxM" firstAttribute="centerY" secondItem="5NJ-7R-wa8" secondAttribute="centerY" id="H4c-YZ-9Ud"/>
+                                <constraint firstItem="44f-rU-sQY" firstAttribute="trailing" secondItem="HA6-PT-MxM" secondAttribute="trailing" constant="22" id="Mvd-IW-Flf"/>
+                                <constraint firstItem="44f-rU-sQY" firstAttribute="bottom" secondItem="HA6-PT-MxM" secondAttribute="bottom" constant="22" id="cem-ef-QDY"/>
+                                <constraint firstItem="HA6-PT-MxM" firstAttribute="centerX" secondItem="5NJ-7R-wa8" secondAttribute="centerX" id="lDM-6Z-78K"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="xRE-LJ-olw">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="193" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xRE-LJ-olw" id="VsU-L1-dYF">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -415,14 +444,25 @@
                             <outlet property="delegate" destination="gfu-vx-hve" id="nZM-1P-S2r"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="outletObject" destination="X81-Fv-hG7" id="5iu-h0-9nq"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kj2-Tr-zOy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="X81-Fv-hG7" customClass="AddEditContactsOutletObject" customModule="ContactsApp" customModuleProvider="target">
+                    <connections>
+                        <outlet property="cameraButton" destination="44f-rU-sQY" id="N8b-0l-I3G"/>
+                        <outlet property="headerView" destination="5NJ-7R-wa8" id="3la-ro-WRZ"/>
+                        <outlet property="profilePicture" destination="HA6-PT-MxM" id="XnG-HE-HRs"/>
+                    </connections>
+                </customObject>
             </objects>
-            <point key="canvasLocation" x="1175" y="-30"/>
+            <point key="canvasLocation" x="1173.5999999999999" y="-30.134932533733135"/>
         </scene>
     </scenes>
     <resources>
         <image name="call_button" width="45" height="44"/>
+        <image name="camera_button" width="41" height="41"/>
         <image name="email_button" width="45" height="44"/>
         <image name="favourite_button" width="44" height="44"/>
         <image name="favourite_button_selected" width="44" height="44"/>

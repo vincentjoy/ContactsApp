@@ -14,12 +14,7 @@ protocol ChangeFavourite {
 
 class ContactTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var profilePictureContainer: UIImageView! {
-        didSet {
-            profilePictureContainer.layer.cornerRadius = profilePictureContainer.frame.width / 2
-            profilePictureContainer.layer.masksToBounds = true
-        }
-    }
+    @IBOutlet weak var profilePictureContainer: CircularImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     
