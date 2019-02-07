@@ -17,8 +17,8 @@ class ContactModel {
     var id: Int
     var favourite: Bool?
     var userName = ""
-    var phoneNumber = ""
-    var email = ""
+    var phoneNumber: String?
+    var email: String?
     var profilePhotoURL: String?
     var profilePhotoState = ProfilePhotoState.New
     var profilePhoto: UIImage?

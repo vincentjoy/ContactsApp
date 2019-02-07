@@ -180,7 +180,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="Oo6-ya-VVI" firstAttribute="leading" secondItem="fs3-HU-XL0" secondAttribute="leading" constant="2" id="2Wt-Hk-uJc"/>
                                                 <constraint firstAttribute="trailing" secondItem="Oo6-ya-VVI" secondAttribute="trailing" constant="2" id="RD3-Fy-cgo"/>
@@ -210,7 +210,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="JqP-6T-K3V" firstAttribute="centerX" secondItem="ie0-jb-JrO" secondAttribute="centerX" id="81P-Wu-L2k"/>
                                                 <constraint firstItem="Gtm-q3-TRl" firstAttribute="leading" secondItem="ie0-jb-JrO" secondAttribute="leading" constant="2" id="G6H-VQ-Szt"/>
@@ -240,7 +240,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="hgv-3F-uzk" firstAttribute="top" secondItem="v6C-oT-eeP" secondAttribute="top" id="R3Z-Na-3b6"/>
                                                 <constraint firstItem="zUj-gA-2s9" firstAttribute="leading" secondItem="v6C-oT-eeP" secondAttribute="leading" constant="2" id="Tuf-vV-tPW"/>
@@ -271,7 +271,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="QJK-0A-0It" firstAttribute="leading" secondItem="VcK-uE-egt" secondAttribute="leading" constant="2" id="AMa-M1-q5s"/>
                                                 <constraint firstItem="ovP-td-zn0" firstAttribute="centerX" secondItem="VcK-uE-egt" secondAttribute="centerX" id="Nhp-Uh-jOW"/>
@@ -281,7 +281,7 @@
                                             </constraints>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="60" id="qkX-y6-7xI"/>
                                     </constraints>
@@ -377,10 +377,13 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MFD-GK-4Bc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="a80-7Q-RO8" customClass="ContactDetailsOutletObject" customModule="ContactsApp" customModuleProvider="target">
                     <connections>
+                        <outlet property="callButton" destination="JqP-6T-K3V" id="aoN-P1-7Vr"/>
                         <outlet property="email" destination="raE-po-chs" id="bYe-TH-UAi"/>
+                        <outlet property="emailButton" destination="hgv-3F-uzk" id="PlI-yo-hxq"/>
                         <outlet property="headerView" destination="X1t-2X-Kd6" id="aVj-6k-5xs"/>
                         <outlet property="mobile" destination="iW1-68-Rqi" id="CjY-I0-MUM"/>
                         <outlet property="profilePicture" destination="dN4-j8-LBI" id="rhL-ZN-nyc"/>
+                        <outlet property="smsButton" destination="aVP-T5-qL4" id="7CJ-Jy-0LY"/>
                         <outlet property="userName" destination="uJG-8w-LFn" id="MQa-yP-2Jp"/>
                     </connections>
                 </customObject>

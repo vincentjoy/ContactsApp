@@ -7,17 +7,36 @@
 //
 
 import UIKit
+import MessageUI
 
-class ContactDetailsTableViewController: UITableViewController {
+class ContactDetailsTableViewController: UITableViewController, MFMessageComposeViewControllerDelegate {
     
     @IBOutlet var outletObject: ContactDetailsOutletObject!
+    
+    var contact: ContactModel?
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        if let contact = contact {
+            outletObject.setUI(with: contact)
+        }
     }
     
     @IBAction func messageAction(_ sender: UIButton) {
         
+        if let mobile = contact?.phoneNumber, !mobile.isEmpty {
+            
+            if MFMessageComposeViewController.canSendText() {
+                let controller = MFMessageComposeViewController()
+                controller.body = ""
+                controller.recipients = [mobile]
+                controller.messageComposeDelegate = self
+                self.present(controller, animated: true, completion: nil)
+            }
+        }
     }
     
     @IBAction func callAction(_ sender: UIButton) {
@@ -30,6 +49,10 @@ class ContactDetailsTableViewController: UITableViewController {
     
     @IBAction func favouriteAction(_ sender: UIButton) {
         
+    }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func editContact() {

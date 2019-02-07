@@ -65,6 +65,8 @@ class MainNavigationController: UINavigationController {
             let edit = UIBarButtonItem.init(title: "Edit", style: .plain, target: contactDetailsVC, action: #selector(contactDetailsVC.editContact))
             contactDetailsVC.navigationItem.rightBarButtonItem = edit
             
+            contactDetailsVC.contact = contact
+            
             self.pushViewController(contactDetailsVC, animated: true)
         }
     }
