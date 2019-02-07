@@ -147,7 +147,7 @@ extension ContactsHomeTableViewDriver: UITableViewDelegate {
         view.backgroundColor = UIColor.groupTableViewBackground
         
         let label = UILabel.init(frame: CGRect(x: 16, y: 4, width: (UIScreen.main.bounds.size.width - 32), height: 20))
-        label.text = "\(groupedContacts[section].first!.userName.first!)"
+        label.text = "\(groupedContacts[section].first!.userName.first!)".uppercased()
         
         view.addSubview(label)
         return view

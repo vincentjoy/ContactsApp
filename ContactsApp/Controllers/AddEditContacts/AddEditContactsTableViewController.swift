@@ -69,11 +69,12 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
         }
         
         let parameters = ["mode": "raw", "raw": dataDictionary.description]
+        print(parameters)
         WebService.shared.request(method: method, url: url, parameters: parameters) { (result) in
             switch result {
             case .Success(let data):
                 print(data)
-//                self.navigationController?.popToRootViewController(animated: false)
+                self.navigationController?.popToRootViewController(animated: false)
             case .Failure(_):
                 self.handleError(message: "Contact saving failed")
             }

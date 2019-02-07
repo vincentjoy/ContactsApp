@@ -60,7 +60,7 @@ class WebService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         if let requestBody = parameters as? [String:Any] {
-            request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody, options: [])
+            request.httpBody = try? JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted)
         }
         
         let task = URLSession(configuration: .default).dataTask(with: request) { data, response, error in
