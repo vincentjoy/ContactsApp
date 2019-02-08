@@ -111,12 +111,20 @@
 			path = AddEditContacts;
 			sourceTree = "<group>";
 		};
-		2F13862C220C183300792A03 /* Views */ = {
+		2F13862C220C183300792A03 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				2F13862D220C184A00792A03 /* CircularImageView.swift */,
 			);
-			path = Views;
+			path = View;
+			sourceTree = "<group>";
+		};
+		2F138631220CD45600792A03 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2FBB9B922208D6D9006EEB87 /* ContactModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		2F16BFA8220A062500EB557C /* ContactDetails */ = {
@@ -157,7 +165,8 @@
 				2FBB9B5C2208A146006EEB87 /* Info.plist */,
 				2FBB9B502208A144006EEB87 /* AppDelegate.swift */,
 				2FBB9B812208A7A7006EEB87 /* Helpers */,
-				2F13862C220C183300792A03 /* Views */,
+				2F138631220CD45600792A03 /* Model */,
+				2F13862C220C183300792A03 /* View */,
 				2FBB9B982208F358006EEB87 /* Controllers */,
 			);
 			path = ContactsApp;
@@ -214,7 +223,6 @@
 			isa = PBXGroup;
 			children = (
 				2FBB9B9B2208F402006EEB87 /* PhotoOperations.swift */,
-				2FBB9B922208D6D9006EEB87 /* ContactModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

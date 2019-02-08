@@ -8,12 +8,18 @@
 
 import UIKit
 
+protocol AddEditProtocol: class {
+    func contactUpdate(with newContact: ContactModel?)
+}
+
 class AddEditContactsTableViewController: UITableViewController, InputAccessoryProtocol, WebserviceHandler {
     
     @IBOutlet var outletObject: AddEditContactsOutletObject!
+    
+    weak var delegate: AddEditProtocol?
 
     private var detailsChanged = false
-    var contact: ContactModel?
+    var contact: ContactModel? /* If contact is not nil, that means this view controller is for editting details */
     
     override func viewDidLoad() {
         
@@ -37,9 +43,14 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
         tableView.endEditing(true)
     }
     
-    @objc func doneAction() {
+    @objc func saveContact() {
         
         tableView.endEditing(true)
+        
+        guard detailsChanged else { /* If there is anything edited, then only need to call the API */
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
         
         guard checkNetwork() else {
             self.handleError(title: "No Internet", message: "Please check your connection")
@@ -66,19 +77,34 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
             url = WebServiceRoute.ContactOperations(.BaseURL, .ContactOperations, "\(contact.id)")
             method = HTTPMethod.Put
             dataDictionary["favorite"] = contact.favourite
+            
+            self.contact?.updateDetails(data: dataDictionary)
+            self.delegate?.contactUpdate(with: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
         }
         
+        /*
         let parameters = ["mode": "raw", "raw": dataDictionary.description]
-        print(parameters)
-        WebService.shared.request(method: method, url: url, parameters: parameters) { (result) in
+        WebService.shared.request(method: method, url: url, parameters: dataDictionary) { (result) in
             switch result {
             case .Success(let data):
                 print(data)
-                self.navigationController?.popToRootViewController(animated: false)
+                if let contactsData = data as? [String:Any], let instance = ContactModel(data: contactsData) {
+                    if let _ = self.contact {
+                        self.contact?.updateDetails(data: contactsData)
+                        self.delegate?.contactUpdate(with: nil)
+                    } else {
+                        self.delegate?.contactUpdate(with: instance)
+                    }
+                } else {
+                    self.handleError(message: "Contact saving failed")
+                }
             case .Failure(_):
                 self.handleError(message: "Contact saving failed")
             }
         }
+        */
     }
     
     @objc func cancelAction() {
@@ -127,7 +153,7 @@ extension AddEditContactsTableViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        detailsChanged = true
+        detailsChanged = true /* Setting that details has changed. So clicking Done button should call API */
         return true
     }
 }

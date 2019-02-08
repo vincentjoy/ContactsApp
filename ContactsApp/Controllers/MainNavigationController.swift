@@ -10,7 +10,14 @@ import UIKit
 
 class MainNavigationController: UINavigationController {
 
-    var reloadHomeTableView = false
+    var reloadIndex: IndexPath? {
+        didSet {
+            let tableView = (self.children.first as? ContactsHomeViewController)?.outletObject.tableView
+            tableView?.beginUpdates()
+            tableView?.reloadRows(at: [reloadIndex!], with: .none)
+            tableView?.endUpdates()
+        }
+    }
     private lazy var ContactDetailsIdentifier = "ContactDetailsTVC"
     private lazy var AddEditContactsIdentifier = "AddEditContactsTVC"
     
@@ -48,24 +55,27 @@ class MainNavigationController: UINavigationController {
         
         if let addContactsVC = self.storyboard?.instantiateViewController(withIdentifier: AddEditContactsIdentifier) as? AddEditContactsTableViewController {
             
-            let done = UIBarButtonItem(barButtonSystemItem: .done, target: addContactsVC, action: #selector(addContactsVC.doneAction))
+            let done = UIBarButtonItem(barButtonSystemItem: .done, target: addContactsVC, action: #selector(addContactsVC.saveContact))
             addContactsVC.navigationItem.rightBarButtonItem = done
             
             let cancel = UIBarButtonItem.init(title: "Cancel", style: .plain, target: addContactsVC, action: #selector(addContactsVC.cancelAction))
             addContactsVC.navigationItem.leftBarButtonItem = cancel
             
+            addContactsVC.delegate = self
             addContactsVC.contact = data
+            
             self.pushViewController(addContactsVC, animated: true)
         }
     }
     
-    func showContactDetails(for contact: ContactModel) {
+    func showContactDetails(for contact: ContactModel, at index: IndexPath) {
         
         if let contactDetailsVC = self.storyboard?.instantiateViewController(withIdentifier: ContactDetailsIdentifier) as? ContactDetailsTableViewController {
             
             let edit = UIBarButtonItem.init(title: "Edit", style: .plain, target: contactDetailsVC, action: #selector(contactDetailsVC.editContact))
             contactDetailsVC.navigationItem.rightBarButtonItem = edit
             
+            contactDetailsVC.selectedIndex = index
             contactDetailsVC.contact = contact
             
             self.pushViewController(contactDetailsVC, animated: true)
@@ -83,10 +93,22 @@ extension MainNavigationController: UINavigationControllerDelegate {
             navigationBar.shadowImage = UIImage()
         }
         navigationBar.layoutIfNeeded()
+    }
+}
+
+extension MainNavigationController: AddEditProtocol {
+    
+    func contactUpdate(with newContact: ContactModel?) {
         
-        if viewController.isKind(of: ContactsHomeViewController.self) && reloadHomeTableView {
-            (viewController as? ContactsHomeViewController)?.outletObject.tableView.reloadData()
-            reloadHomeTableView = !reloadHomeTableView
+        for vc in viewControllers {
+            
+            if let contactInstance = newContact, let homeVC = vc as? ContactsHomeViewController {
+                homeVC.updateContactList(contact: contactInstance)
+            } else if let detailsVC = vc as? ContactDetailsTableViewController {
+                detailsVC.setupUI(fromDelegate: true)
+            }
         }
+        
+        popViewController(animated: true)
     }
 }

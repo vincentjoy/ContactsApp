@@ -31,15 +31,28 @@ class ContactsHomeTableViewDriver: NSObject {
         imageCache.countLimit = 30
     }
     
-    func reloadData(contactsData: [Dictionary<String,Any>]) {
+    func reloadData(dictArray: [Dictionary<String,Any>]) {
         
         var contacts = [ContactModel]()
-        for contact in contactsData {
+        for contact in dictArray {
             if let contactInstance = ContactModel(data: contact) {
                 contacts.append(contactInstance)
             }
         }
-        contacts = contacts.sorted(by: { $0.userName.uppercased() < $1.userName.uppercased() })
+        reloadData(objectArray: contacts)
+    }
+    
+    func reloadData(object: ContactModel) {
+        
+        var contacts = groupedContacts.flatMap{$0}
+        contacts.append(object)
+        
+        reloadData(objectArray: contacts)
+    }
+    
+    private func reloadData(objectArray: [ContactModel]) {
+        
+        let contacts = objectArray.sorted(by: { $0.userName.uppercased() < $1.userName.uppercased() })
         
         groupedContacts = contacts.reduce([[ContactModel]]()) {
             
@@ -134,7 +147,7 @@ extension ContactsHomeTableViewDriver: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = groupedContacts[indexPath.section][indexPath.row]
-        (self.parent?.navigationController as? MainNavigationController)?.showContactDetails(for: contact)
+        (self.parent?.navigationController as? MainNavigationController)?.showContactDetails(for: contact, at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

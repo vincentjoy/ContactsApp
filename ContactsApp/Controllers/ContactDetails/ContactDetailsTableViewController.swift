@@ -14,15 +14,25 @@ class ContactDetailsTableViewController: UITableViewController, MFMessageCompose
     @IBOutlet var outletObject: ContactDetailsOutletObject!
     
     var contact: ContactModel?
+    var selectedIndex: IndexPath?
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
         tableView.tableFooterView = UIView(frame: CGRect.zero)
+        setupUI(fromDelegate: false)
+    }
+    
+    func setupUI(fromDelegate: Bool) {
+        
         if let contact = contact {
+            
             outletObject.initialiseUI(with: contact)
-            updateUI(contact: contact)
+            
+            if !fromDelegate {
+                updateUI(contact: contact)
+            }
         }
     }
     
@@ -93,10 +103,14 @@ class ContactDetailsTableViewController: UITableViewController, MFMessageCompose
     @IBAction func favouriteAction(_ sender: UIButton) {
         
         if let contact = contact {
+            
             contact.changeFavourite()
+            
             let favImage = contact.favourite ? UIImage(named: "favourite_button_selected")! : UIImage(named: "favourite_button")!
             outletObject.favouriteButton.setImage(favImage, for: .normal)
-            (self.navigationController as? MainNavigationController)?.reloadHomeTableView = true
+            
+            /* Since this contact is favourited, we need to show the favourite image in the contacts list page. So setting "reloadIndex" will reload the table view */
+            (self.navigationController as? MainNavigationController)?.reloadIndex = selectedIndex
         }
     }
     

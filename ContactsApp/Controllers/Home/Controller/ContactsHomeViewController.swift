@@ -71,6 +71,10 @@ class ContactsHomeViewController: UIViewController, WebserviceHandler {
     
     private func customiseTableView(contactsData: [Dictionary<String,Any>]) {
         tableViewDriver = ContactsHomeTableViewDriver(tableView: self.outletObject.tableView, parent: self)
-        tableViewDriver?.reloadData(contactsData: contactsData)
+        tableViewDriver?.reloadData(dictArray: contactsData)
+    }
+    
+    func updateContactList(contact:ContactModel) {
+        tableViewDriver?.reloadData(object: contact)
     }
 }
