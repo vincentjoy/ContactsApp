@@ -21,33 +21,13 @@ class ContactsHomeViewController: UIViewController, WebserviceHandler {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchContacts()
-        customiseState(state: .Loading)
-    }
-    
-    private func customiseState(state: ViewState) {
-    
-        switch state {
-        case .Loading:
-            outletObject.tableView.isHidden = true
-            outletObject.indicatorContainer.isHidden = false
-            outletObject.indicatorLabel.text = "Loading contacts"
-            outletObject.activityIndicator.startAnimating()
-        case .Success:
-            outletObject.tableView.isHidden = false
-            outletObject.indicatorContainer.isHidden = true
-            outletObject.activityIndicator.stopAnimating()
-        case .Failure:
-            outletObject.tableView.isHidden = true
-            outletObject.indicatorContainer.isHidden = false
-            outletObject.activityIndicator.stopAnimating()
-            outletObject.indicatorLabel.text = "No contacts found!"
-        }
+        outletObject.customiseState(state: .Loading)
     }
     
     private func fetchContacts() {
         
         guard checkNetwork() else {
-            self.customiseState(state: .Failure)
+            outletObject.customiseState(state: .Failure)
             self.handleError(title: "No Internet", message: "Please check your connection")
             return
         }
@@ -57,13 +37,13 @@ class ContactsHomeViewController: UIViewController, WebserviceHandler {
             case .Success(let data):
                 if let contactsData = data as? [Dictionary<String,Any>], contactsData.count>0 {
                     self.customiseTableView(contactsData: contactsData)
-                    self.customiseState(state: .Success)
+                    self.outletObject.customiseState(state: .Success)
                 } else {
-                    self.customiseState(state: .Failure)
+                    self.outletObject.customiseState(state: .Failure)
                     self.handleError(message: "No data found")
                 }
             case .Failure(let error):
-                self.customiseState(state: .Failure)
+                self.outletObject.customiseState(state: .Failure)
                 self.handleError(message: error)
             }
         }

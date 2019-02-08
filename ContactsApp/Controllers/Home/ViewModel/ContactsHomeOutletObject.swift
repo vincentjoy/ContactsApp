@@ -16,4 +16,24 @@ class ContactsHomeOutletObject: NSObject {
     @IBOutlet weak var indicatorLabel: UILabel!
     @IBOutlet weak var indicatorContainer: UIStackView!
     @IBOutlet weak var tableView: UITableView!
+    
+    func customiseState(state: ViewState) {
+        
+        switch state {
+        case .Loading:
+            tableView.isHidden = true
+            indicatorContainer.isHidden = false
+            indicatorLabel.text = "Loading contacts"
+            activityIndicator.startAnimating()
+        case .Success:
+            tableView.isHidden = false
+            indicatorContainer.isHidden = true
+            activityIndicator.stopAnimating()
+        case .Failure:
+            tableView.isHidden = true
+            indicatorContainer.isHidden = false
+            activityIndicator.stopAnimating()
+            indicatorLabel.text = "No contacts found!"
+        }
+    }
 }

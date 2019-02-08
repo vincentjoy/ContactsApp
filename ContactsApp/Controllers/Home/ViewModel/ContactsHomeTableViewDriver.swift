@@ -81,39 +81,6 @@ class ContactsHomeTableViewDriver: NSObject {
         
         tableView.reloadData()
     }
-}
-
-extension ContactsHomeTableViewDriver: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return (groupedContacts.count>0 ? groupedContacts.count : 0)
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groupedContacts[section].count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? ContactTableViewCell else {
-            return UITableViewCell()
-        }
-        
-        if indexPath.row < groupedContacts[indexPath.section].count {
-            
-            let contact = groupedContacts[indexPath.section][indexPath.row]
-            cell.delegate = self
-            cell.configureCell(with: contact, at: indexPath)
-            
-            /* If the contact object's profilePhotoState is .new, we kick off a start download operation of image and if it is fail, we will change the UI of the cell accordingly. And if the state is already downloaded, in the configureCellWith(contact:) of ContactTableViewCell, the cell will receive the downloaded image */
-            
-            if contact.profilePhotoState == .New {
-                startDownload(for: contact, at: indexPath)
-            }
-        }
-        
-        return cell
-    }
     
     private func startDownload(for photoData: ContactModel, at indexPath: IndexPath) {
         
@@ -164,9 +131,44 @@ extension ContactsHomeTableViewDriver: UITableViewDataSource {
     }
 }
 
+extension ContactsHomeTableViewDriver: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return (groupedContacts.count>0 ? groupedContacts.count : 0)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return groupedContacts[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? ContactTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        if indexPath.row < groupedContacts[indexPath.section].count {
+            
+            let contact = groupedContacts[indexPath.section][indexPath.row]
+            cell.delegate = self
+            cell.configureCell(with: contact, at: indexPath)
+            
+            /* If the contact object's profilePhotoState is .new, we kick off a start download operation of image and if it is fail, we will change the UI of the cell accordingly. And if the state is already downloaded, in the configureCellWith(contact:) of ContactTableViewCell, the cell will receive the downloaded image */
+            
+            if contact.profilePhotoState == .New {
+                startDownload(for: contact, at: indexPath)
+            }
+        }
+        
+        return cell
+    }
+}
+
 extension ContactsHomeTableViewDriver: UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+        /* prefetchRowsAt delegate will prefetch the next several cells of tableview to load. In those cells, we will download the images in if it not yet downloaded */
         
         for indexPath in indexPaths {
             
@@ -180,6 +182,8 @@ extension ContactsHomeTableViewDriver: UITableViewDataSourcePrefetching {
     }
     
     func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        
+        /* cancelPrefetchingForRowsAt delegate will decide the next several cells of tableview to remove. In those cells, we will dcan cel the image download process if it already undergoing */
         
         for indexPath in indexPaths {
             if (indexPath.row < groupedContacts[indexPath.section].count) && (pendingOperations.downloadsInProgress[indexPath] != nil) {
