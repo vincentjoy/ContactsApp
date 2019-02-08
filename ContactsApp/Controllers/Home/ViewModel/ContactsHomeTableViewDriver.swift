@@ -15,9 +15,9 @@ class ContactsHomeTableViewDriver: NSObject {
     private let pendingOperations = PendingOperations()
     private var alphabets = [String]()
     private let imageCache = NSCache<NSString, UIImage>()
+    private var reuseIdentifier = "ContactCell"
     
     weak var parent: ContactsHomeViewController?
-    lazy var reuseIdentifier = "ContactCell"
     
     init(tableView: UITableView, parent: ContactsHomeViewController) {
         
@@ -25,8 +25,11 @@ class ContactsHomeTableViewDriver: NSObject {
         super.init()
         
         self.parent = parent
+        
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.prefetchDataSource = self
+        
         tableView.sectionIndexColor = UIColor.ContactsTheme.greenColor
         imageCache.countLimit = 30
     }
@@ -127,7 +130,10 @@ extension ContactsHomeTableViewDriver: UITableViewDataSource {
             
             photoData.profilePhoto = cachedImage
             self.pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
-            self.tableView.reloadData()
+            
+            if (self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false) {
+                self.tableView.reloadRows(at: [indexPath], with: .fade)
+            }
             
         } else {
             
@@ -141,7 +147,9 @@ extension ContactsHomeTableViewDriver: UITableViewDataSource {
                 
                 DispatchQueue.main.async {
                     self.pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
-                    self.tableView.reloadData()
+                    if (self.tableView.indexPathsForVisibleRows?.contains(indexPath) ?? false) {
+                        self.tableView.reloadRows(at: [indexPath], with: .fade)
+                    }
                     if let downloadedImage = downloader.photoObject.profilePhoto {
                         self.imageCache.setObject(downloadedImage, forKey: urlString as NSString)
                     }
@@ -152,6 +160,31 @@ extension ContactsHomeTableViewDriver: UITableViewDataSource {
             
             pendingOperations.downloadsInProgress[indexPath] = downloader
             pendingOperations.downloadQueue.addOperation(downloader)
+        }
+    }
+}
+
+extension ContactsHomeTableViewDriver: UITableViewDataSourcePrefetching {
+    
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        
+        for indexPath in indexPaths {
+            
+            if indexPath.row < groupedContacts[indexPath.section].count {
+                let contact = groupedContacts[indexPath.section][indexPath.row]
+                if contact.profilePhotoState == .New {
+                    startDownload(for: contact, at: indexPath)
+                }
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        
+        for indexPath in indexPaths {
+            if (indexPath.row < groupedContacts[indexPath.section].count) && (pendingOperations.downloadsInProgress[indexPath] != nil) {
+                pendingOperations.downloadsInProgress.removeValue(forKey: indexPath)
+            }
         }
     }
 }
