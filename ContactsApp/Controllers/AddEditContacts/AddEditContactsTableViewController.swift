@@ -18,6 +18,7 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
     
     weak var delegate: AddEditProtocol?
 
+    private var activeField = 0
     private var detailsChanged = false
     var contact: ContactModel? /* If contact is not nil, that means this view controller is for editing details */
     
@@ -29,7 +30,7 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
         for (index, tf) in outletObject.fieldEntry.enumerated() {
             tf.delegate = self
             tf.tag = index
-            tf.inputAccessoryView = createInputAccessoryView()
+            tf.inputAccessoryView = createInputAccessoryView(lastField: (index==(outletObject.fieldEntry.count-1)))
         }
         
         if let contact = contact {
@@ -40,7 +41,11 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
     }
     
     @objc func doneTouched() {
-        tableView.endEditing(true)
+        outletObject.fieldEntry[activeField].resignFirstResponder()
+    }
+    
+    @objc func showNext() {
+        outletObject.fieldEntry[activeField+1].becomeFirstResponder()
     }
     
     @objc func saveContact() {
@@ -86,9 +91,12 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
                 print(data)
                 if let contactsData = data as? [String:Any], let instance = ContactModel(data: contactsData) {
                     if let _ = self.contact {
+                        
                         /* Means, this is an editing contact process and therefore should update the details in Edit screen. Since ContactModel is a class and it is passed by reference, editing the self.contact will change the ContactModel instance value in the edit screen also */
+                        
                         self.contact?.updateDetails(data: contactsData)
                         self.delegate?.contactUpdate(with: nil)
+                        
                     } else {
                         /* Means, this is a new contact and should add to the contact list in home screen */
                         self.delegate?.contactUpdate(with: instance)
@@ -138,9 +146,13 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
 
 extension AddEditContactsTableViewController: UITextFieldDelegate {
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeField = textField.tag
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField.tag == ProfileTextField.Email.rawValue {
-            tableView.endEditing(true)
+            textField.resignFirstResponder()
         } else {
             outletObject.fieldEntry[textField.tag+1].becomeFirstResponder()
         }

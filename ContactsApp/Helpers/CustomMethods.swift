@@ -15,7 +15,7 @@ protocol WebserviceHandler: class {
 }
 
 protocol InputAccessoryProtocol: class {
-    func createInputAccessoryView () -> UIToolbar
+    func createInputAccessoryView(lastField: Bool) -> UIToolbar
 }
 
 extension WebserviceHandler where Self: UIViewController {
@@ -55,14 +55,20 @@ extension WebserviceHandler where Self: UIViewController {
 
 extension InputAccessoryProtocol where Self: UIViewController {
     
-    func createInputAccessoryView () -> UIToolbar {
+    func createInputAccessoryView(lastField: Bool) -> UIToolbar {
         
         let toolbarAccessoryView = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: 44))
         toolbarAccessoryView.barStyle = .default
         toolbarAccessoryView.tintColor = UIColor.ContactsTheme.greenColor
         let flexSpace = UIBarButtonItem(barButtonSystemItem:.flexibleSpace, target:nil, action:nil)
         let doneButton = UIBarButtonItem(barButtonSystemItem:.done, target:self, action:Selector(("doneTouched")))
-        toolbarAccessoryView.setItems([flexSpace, doneButton], animated: false)
+        
+        if lastField {
+            toolbarAccessoryView.setItems([flexSpace, doneButton], animated: false)
+        } else {
+            let nextButton = UIBarButtonItem.init(title: "Next", style: .done, target: self, action: Selector(("showNext")))
+            toolbarAccessoryView.setItems([nextButton, flexSpace, doneButton], animated: false)
+        }
         
         return toolbarAccessoryView
     }
