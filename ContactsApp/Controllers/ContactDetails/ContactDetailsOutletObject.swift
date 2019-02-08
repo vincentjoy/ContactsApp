@@ -53,7 +53,7 @@ class ContactDetailsOutletObject: NSObject {
         smsButton.isEnabled = (contact.phoneNumber != nil)
         smsButton.alpha = (contact.phoneNumber != nil) ? 0.7 : 1.0
         callButton.isEnabled = (contact.phoneNumber != nil)
-        callButton.alpha = 0.7
+        callButton.alpha = (contact.phoneNumber != nil) ? 0.7 : 1.0
         
         emailButton.isEnabled = (contact.email != nil)
         emailButton.alpha = (contact.email != nil) ? 0.7 : 1.0
