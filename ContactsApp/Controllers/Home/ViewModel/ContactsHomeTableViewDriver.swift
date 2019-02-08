@@ -234,9 +234,6 @@ extension ContactsHomeTableViewDriver: ChangeFavourite {
     func changeFavouriteState(at indexPath: IndexPath) {
         
         groupedContacts[indexPath.section][indexPath.row].changeFavourite()
-        
-        tableView.beginUpdates()
         tableView.reloadRows(at: [indexPath], with: .none)
-        tableView.endUpdates()
     }
 }
