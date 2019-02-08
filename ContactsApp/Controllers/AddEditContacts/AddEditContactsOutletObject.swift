@@ -12,7 +12,7 @@ enum ProfileTextField: Int {
     
     case FName, LName, Mobile, Email
     
-    var keyName: String {
+    var keyName: String { /* This can be used when we create a request for updating or adding contacts */
         switch self {
         case .FName:
             return "first_name"
@@ -27,6 +27,8 @@ enum ProfileTextField: Int {
 }
 
 class AddEditContactsOutletObject: NSObject {
+    
+    /* This class can be used to put all the IBOutlets in one place. If this is a big view controller with lots of outlets, then this separate class can help us to reduce the code size in view controller */
 
     @IBOutlet weak var headerView: UIView! {
         didSet {

@@ -10,7 +10,7 @@ import UIKit
 
 class MainNavigationController: UINavigationController {
 
-    var reloadIndex: IndexPath? {
+    var reloadIndex: IndexPath? { /* To update contact list cell if any contact changed to favorite from Contact Details */
         didSet {
             let tableView = (self.children.first as? ContactsHomeViewController)?.outletObject.tableView
             tableView?.beginUpdates()
@@ -52,6 +52,8 @@ class MainNavigationController: UINavigationController {
     }
     
     func showAddOrEditContacts(with data: ContactModel?) {
+        
+        /* If the ContactModel instance is not nil, that means we need to show Edit Contact Screen, not Add Contact. We are using same view controller for both */
         
         if let addContactsVC = self.storyboard?.instantiateViewController(withIdentifier: AddEditContactsIdentifier) as? AddEditContactsTableViewController {
             
@@ -99,6 +101,9 @@ extension MainNavigationController: UINavigationControllerDelegate {
 extension MainNavigationController: AddEditProtocol {
     
     func contactUpdate(with newContact: ContactModel?) {
+        
+        /* If contact is edited, we need to show that new details in contact details screen. Because popViewController will land in the Contact Details screen */
+        /* If it was an addition of new contact, view controller will pop to contact list and add this new contact in the list and reload the table view */
         
         for vc in viewControllers {
             

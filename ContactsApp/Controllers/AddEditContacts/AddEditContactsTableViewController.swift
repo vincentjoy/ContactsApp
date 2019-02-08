@@ -19,7 +19,7 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
     weak var delegate: AddEditProtocol?
 
     private var detailsChanged = false
-    var contact: ContactModel? /* If contact is not nil, that means this view controller is for editting details */
+    var contact: ContactModel? /* If contact is not nil, that means this view controller is for editing details */
     
     override func viewDidLoad() {
         
@@ -86,9 +86,11 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
                 print(data)
                 if let contactsData = data as? [String:Any], let instance = ContactModel(data: contactsData) {
                     if let _ = self.contact {
+                        /* Means, this is an editing contact process and therefore should update the details in Edit screen. Since ContactModel is a class and it is passed by reference, editing the self.contact will change the ContactModel instance value in the edit screen also */
                         self.contact?.updateDetails(data: contactsData)
                         self.delegate?.contactUpdate(with: nil)
                     } else {
+                        /* Means, this is a new contact and should add to the contact list in home screen */
                         self.delegate?.contactUpdate(with: instance)
                     }
                 } else {

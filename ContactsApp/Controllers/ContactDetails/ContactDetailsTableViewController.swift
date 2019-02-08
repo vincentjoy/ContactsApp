@@ -26,6 +26,8 @@ class ContactDetailsTableViewController: UITableViewController, MFMessageCompose
     
     func setupUI(fromDelegate: Bool) {
         
+        /* If fromDelegate is true, it means this method is called after the editing of contact. So we need to update the new details in this screen */
+        
         if let contact = contact {
             
             outletObject.initialiseUI(with: contact)
@@ -47,7 +49,7 @@ class ContactDetailsTableViewController: UITableViewController, MFMessageCompose
             switch result {
             case .Success(let data):
                 if let contactsData = data as? [String:Any] {
-                    contact.updateDetails(data: contactsData)
+                    contact.updateDetails(data: contactsData) /* Update the lastName, email and phoneNumber */
                     self.outletObject.initialiseUI(with: contact)
                 } else {
                     self.handleError(message: "No data found")
@@ -104,7 +106,7 @@ class ContactDetailsTableViewController: UITableViewController, MFMessageCompose
         
         if let contact = contact {
             
-            contact.changeFavourite()
+            contact.changeFavourite() /* Since ContactModel is a class and it is passed by reference, editing the self.contact will change the ContactModel instance value in the other screens also since all the screens are sharing the same instance of ContactModel */
             
             let favImage = contact.favourite ? UIImage(named: "favourite_button_selected")! : UIImage(named: "favourite_button")!
             outletObject.favouriteButton.setImage(favImage, for: .normal)

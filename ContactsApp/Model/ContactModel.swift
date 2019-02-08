@@ -9,6 +9,7 @@
 import UIKit
 
 enum ProfilePhotoState {
+    /* To represent the status of the image download operation in the queue */
     case New, Downloaded, Failed
 }
 
@@ -23,7 +24,7 @@ class ContactModel {
     var email: String?
     var profilePhotoURL: String?
     var profilePhotoState = ProfilePhotoState.New
-    var profilePhoto: UIImage?
+    var profilePhoto: UIImage? /* Image will be added only after the state changes to .downloaded */
     
     init?(data: [String:Any]) {
         

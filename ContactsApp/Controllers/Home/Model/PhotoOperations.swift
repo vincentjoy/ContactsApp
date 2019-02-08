@@ -10,6 +10,8 @@ import UIKit
 
 class PendingOperations {
     
+    /* This class contains a dictionary to keep track of active and pending download operations for each cell in the table view, and a corresponding operation queue. */
+    
     lazy var downloadsInProgress: [IndexPath: Operation] = [:]
     lazy var downloadQueue: OperationQueue = {
         var queue = OperationQueue()
@@ -18,6 +20,8 @@ class PendingOperations {
 }
 
 class ImageDownloader: Operation {
+    
+    /* This class is using to track the status of each operation */
     
     let photoObject: ContactModel
     
@@ -28,6 +32,9 @@ class ImageDownloader: Operation {
     override func main() {
         
         if isCancelled {
+            
+            /* Check for cancellation before starting. Operations should regularly check if they have been cancelled before attempting long or intensive work. */
+            
             return
         }
         
@@ -43,6 +50,8 @@ class ImageDownloader: Operation {
         if isCancelled {
             return
         }
+        
+        /* If there is data, create an image object and add it to the record, and move the state along. If there is no data, mark the record as failed. */
         
         if !imageData.isEmpty {
             photoObject.profilePhoto = UIImage(data:imageData)
