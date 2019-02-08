@@ -80,7 +80,7 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
         }
         
         let parameters = ["mode": "raw", "raw": dataDictionary.description]
-        WebService.shared.request(method: method, url: url, parameters: dataDictionary) { (result) in
+        WebService.shared.request(method: method, url: url, parameters: parameters) { (result) in
             switch result {
             case .Success(let data):
                 print(data)
