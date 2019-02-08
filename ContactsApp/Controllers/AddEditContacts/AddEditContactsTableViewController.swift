@@ -77,14 +77,8 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
             url = WebServiceRoute.ContactOperations(.BaseURL, .ContactOperations, "\(contact.id)")
             method = HTTPMethod.Put
             dataDictionary["favorite"] = contact.favourite
-            
-            self.contact?.updateDetails(data: dataDictionary)
-            self.delegate?.contactUpdate(with: nil)
-        } else {
-            self.navigationController?.popViewController(animated: true)
         }
         
-        /*
         let parameters = ["mode": "raw", "raw": dataDictionary.description]
         WebService.shared.request(method: method, url: url, parameters: dataDictionary) { (result) in
             switch result {
@@ -104,7 +98,6 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
                 self.handleError(message: "Contact saving failed")
             }
         }
-        */
     }
     
     @objc func cancelAction() {
