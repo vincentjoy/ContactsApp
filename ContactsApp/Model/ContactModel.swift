@@ -67,7 +67,7 @@ class ContactModel {
             userName = FName
             firstName = FName
             if let LName = data["last_name"] as? String {
-                userName += " \(lastName)"
+                userName += " \(LName)"
                 lastName = LName
             }
         }
