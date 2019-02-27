@@ -85,9 +85,9 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
         }
         
         WebService.shared.request(method: method, url: url, parameters: dataDictionary) { (result) in
+            print("Response is \n\(result)")
             switch result {
             case .Success(let data):
-                
                 if let contactsData = data as? [String:Any], let instance = ContactModel(data: contactsData) {
                     if let _ = self.contact {
                         
@@ -100,11 +100,14 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
                         /* Means, this is a new contact and should add to the contact list in home screen */
                         self.delegate?.contactUpdate(with: instance)
                     }
+                } else if let errorsData = data as? [String:Any],
+                    let errors = errorsData["errors"] as? [String] {
+                    self.handleError(title: "Operation failed", message: errors.joined(separator: ", "))
                 } else {
-                    self.handleError(message: "Contact saving failed")
+                    self.handleError(message: "Contact operation failed")
                 }
-            case .Failure(_):
-                self.handleError(message: "Contact saving failed")
+            case .Failure(let error):
+                self.handleError(message: error)
             }
         }
     }
