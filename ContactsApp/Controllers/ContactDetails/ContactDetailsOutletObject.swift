@@ -51,12 +51,12 @@ class ContactDetailsOutletObject: NSObject {
         }
         
         smsButton.isEnabled = (contact.phoneNumber != nil)
-        smsButton.alpha = (contact.phoneNumber != nil) ? 0.7 : 1.0
+        smsButton.alpha = (contact.phoneNumber != nil) ? 1.0 : 0.7
         callButton.isEnabled = (contact.phoneNumber != nil)
-        callButton.alpha = (contact.phoneNumber != nil) ? 0.7 : 1.0
+        callButton.alpha = (contact.phoneNumber != nil) ? 1.0 : 0.7
         
         emailButton.isEnabled = (contact.email != nil)
-        emailButton.alpha = (contact.email != nil) ? 0.7 : 1.0
+        emailButton.alpha = (contact.email != nil) ? 1.0 : 0.7
         
         let favImage = contact.favourite ? UIImage(named: "favourite_button_selected")! : UIImage(named: "favourite_button")!
         favouriteButton.setImage(favImage, for: .normal)
