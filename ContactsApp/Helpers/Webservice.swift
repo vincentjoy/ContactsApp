@@ -28,15 +28,15 @@ enum WebServiceEndPoint: String {
 
 enum WebServiceRoute {
     
-    case GetContacts(WebServiceEndPoint, WebServiceEndPoint)
-    case ContactOperations(WebServiceEndPoint, WebServiceEndPoint, String)
+    case GetContacts(WebServiceEndPoint)
+    case ContactOperations(WebServiceEndPoint, String)
     
     var Route: String {
         switch self {
-        case let .GetContacts(baseURL, url):
-            return "\(baseURL.rawValue)\(url.rawValue)"
-        case let .ContactOperations(baseURL, url, id):
-            return "\(baseURL.rawValue)\(url.rawValue)\(id).json"
+        case .GetContacts(let url):
+            return "\(WebServiceEndPoint.BaseURL.rawValue)\(url.rawValue)"
+        case let .ContactOperations(url, id):
+            return "\(WebServiceEndPoint.BaseURL.rawValue)\(url.rawValue)\(id).json"
         }
     }
 }
@@ -50,8 +50,6 @@ class WebService {
         guard let dataSourceURL = URL(string: url.Route) else {
             return
         }
-        
-        print(url.Route)
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         

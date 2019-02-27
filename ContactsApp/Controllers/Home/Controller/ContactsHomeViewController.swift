@@ -32,7 +32,7 @@ class ContactsHomeViewController: UIViewController, WebserviceHandler {
             return
         }
         
-        WebService.shared.request(method: .Get, url: WebServiceRoute.GetContacts(.BaseURL, .GetContacts)) { (result) in
+        WebService.shared.request(method: .Get, url: WebServiceRoute.GetContacts(.GetContacts)) { (result) in
             switch result {
             case .Success(let data):
                 if let contactsData = data as? [Dictionary<String,Any>], contactsData.count>0 {

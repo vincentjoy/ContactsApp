@@ -76,10 +76,10 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
         
         dataDictionary["favorite"] = false
         
-        var url = WebServiceRoute.GetContacts(.BaseURL, .GetContacts)
+        var url = WebServiceRoute.GetContacts(.GetContacts)
         var method = HTTPMethod.Post
         if let contact = contact {
-            url = WebServiceRoute.ContactOperations(.BaseURL, .ContactOperations, "\(contact.id)")
+            url = WebServiceRoute.ContactOperations(.ContactOperations, "\(contact.id)")
             method = HTTPMethod.Put
             dataDictionary["favorite"] = contact.favourite
         }

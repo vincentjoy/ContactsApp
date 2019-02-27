@@ -47,7 +47,7 @@ class ContactDetailsTableViewController: UITableViewController, MFMessageCompose
             return
         }
         
-        WebService.shared.request(method: .Get, url: WebServiceRoute.ContactOperations(.BaseURL, .ContactOperations, "\(contact.id)")) { (result) in
+        WebService.shared.request(method: .Get, url: WebServiceRoute.ContactOperations(.ContactOperations, "\(contact.id)")) { (result) in
             switch result {
             case .Success(let data):
                 if let contactsData = data as? [String:Any] {
