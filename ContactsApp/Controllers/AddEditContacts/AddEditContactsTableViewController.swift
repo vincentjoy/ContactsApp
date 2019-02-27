@@ -87,7 +87,7 @@ class AddEditContactsTableViewController: UITableViewController, InputAccessoryP
         WebService.shared.request(method: method, url: url, parameters: dataDictionary) { (result) in
             switch result {
             case .Success(let data):
-                print(data)
+                
                 if let contactsData = data as? [String:Any], let instance = ContactModel(data: contactsData) {
                     if let _ = self.contact {
                         

@@ -26,13 +26,15 @@ class ContactDetailsTableViewController: UITableViewController, MFMessageCompose
     
     func setupUI(fromDelegate: Bool) {
         
-        /* If fromDelegate is true, it means this method is called after the editing of contact. So we need to update the new details in this screen */
-        
         if let contact = contact {
             
             outletObject.initialiseUI(with: contact)
             
-            if !fromDelegate {
+            /* If fromDelegate is true, it means this method is called after the editing of contact. So we don't need to do one more API call to get the contact details. */
+            /* But we need to update the home screen. So we update the reloadIndex in MainNavigationController */
+            if fromDelegate {
+                (self.navigationController as? MainNavigationController)?.reloadIndex = selectedIndex
+            } else {
                 updateUI(contact: contact)
             }
         }

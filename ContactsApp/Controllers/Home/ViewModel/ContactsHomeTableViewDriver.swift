@@ -62,6 +62,7 @@ class ContactsHomeTableViewDriver: NSObject {
         
         let contacts = objectArray.sorted(by: { $0.userName.uppercased() < $1.userName.uppercased() })
         
+        alphabets = [String]() /* This is needed. Since this method again gets called after add contact and alphabets once again get append to this array */
         groupedContacts = contacts.reduce([[ContactModel]]()) {
             
             guard var last = $0.last else {
